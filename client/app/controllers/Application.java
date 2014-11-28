@@ -26,12 +26,8 @@ public class Application extends Controller {
         Promise<WSResponse> responsePromise = holder.get();
         WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
 
-        try {
-            //TODO DURING INTEGRATION: should be Json.parse(rsp.getBody()); instead of passing string of json test data
-            JsonNode json = Json.parse("{\"Commodities\":[{\"commodityName\":\"wheat\",\"rate\":\"5$\",\"unit\":\"kWh\"},{\"commodityName\":\"rice\",\"rate\":\"5$\",\"unit\":\"kWh\"}]}");
-        }catch(Exception e){
-            //TODO Error Handle if Rest Server does not return json.
-        }
+        //TODO: ADD JSON EXCEPTION HANDLING HERE.
+        JsonNode json = Json.parse("{\"Commodities\":[{\"commodityName\":\"wheat\",\"rate\":\"5$\",\"unit\":\"kWh\"},{\"commodityName\":\"rice\",\"rate\":\"5$\",\"unit\":\"kWh\"}]}");
 
         Map commodities = new HashMap<String,String>();
         JsonNode commodityParentNode = json.get("Commodities");
