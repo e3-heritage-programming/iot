@@ -27,7 +27,8 @@ public class Application extends Controller {
         WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
 
         //TODO: ADD JSON EXCEPTION HANDLING HERE.
-        JsonNode json = Json.parse("{\"Commodities\":[{\"commodityName\":\"wheat\",\"rate\":\"5$\",\"unit\":\"kWh\"},{\"commodityName\":\"rice\",\"rate\":\"5$\",\"unit\":\"kWh\"}]}");
+        //JSON FORMAT : "{\"Commodities\":[{\"commodityName\":\"wheat\",\"rate\":\"5$\",\"unit\":\"kWh\"},{\"commodityName\":\"rice\",\"rate\":\"5$\",\"unit\":\"kWh\"}]}");
+        JsonNode json = Json.parse(rsp.getBody());
 
         Map commodities = new HashMap<String,String>();
         JsonNode commodityParentNode = json.get("Commodities");
