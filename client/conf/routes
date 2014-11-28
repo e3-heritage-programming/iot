@@ -1,9 +1,9 @@
 # Routes
-# This file defines all application routes (Higher priority routes first)
+# This file defines all application routes (Higher priority routes first) controllers.Application.index()
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                           controllers.Application.staticContent()
 
 
 # RESTful Service
