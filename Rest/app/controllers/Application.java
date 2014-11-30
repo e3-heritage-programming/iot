@@ -19,11 +19,11 @@ public class Application extends Controller {
      * @return	Details about the specific commodity request if present. If not commodity not found.
      */
     public static Result getCommodity(String commodityName){
-    	
     	Commodity value = Commodities.getCommodity(commodityName);
     	
     	if (value != null){
-    		return ok(Json.toJson(value));
+    	String tempJson = "{\"commodity\":["+Json.toJson(value) + "]}";
+    		return ok(tempJson);//Json.toJson(value));
     	}else{
     		return ok("Commodity not found");
     	}

@@ -1,19 +1,12 @@
 $(function() {
       $("#commodity-dropdown").change(function() {
-        //TODO - send GET request to server for data on this commodity
-        $.getJSON( "/RemoteCommodities/"+$(this).val(), function( data ) {
-            //TODO
-        });
+    	    	$("#commodity-table-body").empty();   	     	    
+    	    	$.get(  "/RemoteCommodities/"+$(this).val(), function( data ) {
+	    		    //JSON FORMAT: "{\"commodity\":[{\"commodityName\":\"wheat\",\"rate\":\"5\",\"unit\":\"kWh\"}]}"
+		    	    var obj = jQuery.parseJSON(data);
+		    	    $.each(obj.commodity,function(i,v){ 
+		    	    	$("#commodity-table-body").append("<tr><td>"+v.commodityName+"</td><td>"+v.rate+"</td><td>"+v.unit+"</td></tr>");
+		    	    });
+    	    	});    	   
       });
-
-      $("#btnRefreshData").click( function()
-           {
-               $.getJSON( "/Commodities", function( data ) {
-                    $.each( data, function( key, val ) {
-                        alert(val.rate);
-                        $("#appliance_rate_table").append("<tr><td>" + val.name + "</td><td>" + val.rate + "</td></tr>");
-                    });
-                });//end json
-           }
-      );
 });

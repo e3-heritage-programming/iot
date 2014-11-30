@@ -33,24 +33,20 @@
     <select id="commodity-dropdown">
         <option selected="default">Select Commodity</option>
         @for((commodityName, commodityRate) <- commodities) {
-        <option value='@commodityName'>@commodityName</option>
+        	<option value='@commodityName'>@commodityName</option>
         }
     </select>
 
     <table class="table" id="appliance_rate_table">
         <thead>
-        <tr>
-            <th>Commodity</th>
-            <th>Rate</th>
-        </tr>
-        @for((commodityName, commodityRate) <- commodities) {
-        <tr>
-            <td>@commodityName</td>
-            <td>@commodityRate</td>
-        </tr>
-        }
+	        <tr>
+	            <th>Commodity</th>
+	            <th>Rate</th>
+	            <th>Unit</th>
+	        </tr>
         </thead>
-        <tbody>
+        <tbody id="commodity-table-body">
+	       
         </tbody>
     </table>
 </div>

@@ -18,7 +18,7 @@ import java.util.Map;
 public class Application extends Controller {
 
     // TODO read from application settings/configuration
-    private final static String REMOTE_COMMODITIES_SERVICE_URL = "http://localhost:9000/Commodities";
+    private final static String REMOTE_COMMODITIES_SERVICE_URL = "http://localhost:9005/Commodities";
     private final static String COMMODITY_NAME_PARAMETER = "commodityName";
 
     public static Result staticContent(){
@@ -26,16 +26,24 @@ public class Application extends Controller {
         Promise<WSResponse> responsePromise = holder.get();
         WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
 
-        //TODO: ADD JSON EXCEPTION HANDLING HERE.
-        //JSON FORMAT : "{\"Commodities\":[{\"commodityName\":\"wheat\",\"rate\":\"5$\",\"unit\":\"kWh\"},{\"commodityName\":\"rice\",\"rate\":\"5$\",\"unit\":\"kWh\"}]}");
-        JsonNode json = Json.parse(rsp.getBody());
-
-        Map commodities = new HashMap<String,String>();
+        JsonNode json = null;
+        Map<String,String> commodities = new HashMap<String,String>();
+        
+        try{
+        	json = Json.parse(rsp.getBody());
+        }catch(Exception e){//could be of wrong response from server or no response at all (non 200 http request)
+        	//return empty list of commodities
+        	return ok(views.html.Application.index.render(commodities));
+        }
+        
+        //JSON FORMAT : "{\"Commodities\":[{\"commodityName\":\"wheat\",\"rate\":\"5$\",\"unit\":\"kWh\"},{\"commodityName\":\"rice\",\"rate\":\"5$\",\"unit\":\"kWh\"}]}"
         JsonNode commodityParentNode = json.get("Commodities");
+        
         for(int jsonCounter=0; jsonCounter<commodityParentNode.size(); jsonCounter++){
             JsonNode commodityNode = commodityParentNode.get(jsonCounter);
             commodities.put(commodityNode.findValue("commodityName").toString().replace("\"",""), commodityNode.findValue("rate").toString().replace("\"",""));
         }
+        
         return ok(views.html.Application.index.render(commodities));
     }
 
@@ -52,13 +60,18 @@ public class Application extends Controller {
     }
 
     public static Result getRemoteCommodity(String commodityName) {
-        //WSRequestHolder holder = WS.url("http://localhost:9000/Commodities");
-        WSRequestHolder holder = WS.url(REMOTE_COMMODITIES_SERVICE_URL);
-        WSRequestHolder complexHolder = holder.setQueryParameter(COMMODITY_NAME_PARAMETER, commodityName);
-        Promise<WSResponse> responsePromise = complexHolder.get();
+        WSRequestHolder holder = WS.url(REMOTE_COMMODITIES_SERVICE_URL+"/"+commodityName);
+        Promise<WSResponse> responsePromise = holder.get();
         WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
-
-        return ok(Json.toJson(rsp.getBody()));
+        JsonNode json = null;
+        
+        try{
+        	json = Json.toJson(rsp.getBody());
+        }catch(Exception e){
+        	//TODO : return empty json
+        }
+ 
+        return ok(json);
     }
 
 }
