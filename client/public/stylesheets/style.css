@@ -1,6 +1,20 @@
 .rate-table
 {
-    position: fixed;
+	 position: fixed;
+	 top: 23%;
+	 left: 50%;
+	 /* bring your own prefixes */
+	 transform: translate(-50%, -50%);
+  /*  position: fixed;
     top: 100px;
-    left:110px;
+    left:110px; */
+}
+
+.commodity-dropdown-divclass
+{
+	position: fixed;
+	top: 15%;
+	left: 50%;
+	/* bring your own prefixes */
+	 transform: translate(-50%, -50%);
 }
