@@ -1,10 +1,19 @@
 package controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
 import play.libs.Json;
+import play.libs.F.Promise;
+import play.libs.ws.WS;
+import play.libs.ws.WSRequestHolder;
+import play.libs.ws.WSResponse;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.sample.Commodities;
 import com.sample.Commodity;
 
@@ -27,7 +36,30 @@ public class Application extends Controller {
     	}else{
     		return ok("Commodity not found");
     	}
-    	
+    }
+    
+    public static Result getWeather(Integer longitude, Integer latitude){
+
+        WSRequestHolder holder = WS.url("http://api.openweathermap.org/data/2.5/weather?lat="+latitude+"&lon="+longitude);
+
+        Promise<WSResponse> responsePromise = holder.get();
+        WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
+        
+        JsonNode json = null;
+        
+        try{
+        	json = Json.parse(rsp.getBody());
+        }catch(Exception e){//could be of wrong response from server or no response at all (non 200 http request)
+        	//return empty list of commodities
+        	
+        }
+        
+        JsonNode mainParentNode = json.get("main");
+        
+        double temperatureKelvin = Double.parseDouble(mainParentNode.findValue("temp").toString());
+        double temperatureCelcius = temperatureKelvin - 273.15;
+                
+        return ok(Double.toString(temperatureCelcius));
     }
     
     

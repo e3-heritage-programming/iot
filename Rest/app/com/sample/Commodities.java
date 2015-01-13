@@ -20,7 +20,6 @@ public class Commodities {
 	/**
 	 * @return  Set<String> all commoditiy names.
 	 */
-
 	public static Collection<Commodity> getAllCommodities(){
 		return commodities.values();
 	}

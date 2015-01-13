@@ -18,9 +18,18 @@ import java.util.Map;
 public class Application extends Controller {
 
     // TODO read from application settings/configuration
+	private final static String REMOTE_REST_SERVICE = "http://localhost:9005/";
     private final static String REMOTE_COMMODITIES_SERVICE_URL = "http://localhost:9005/Commodities";
     private final static String COMMODITY_NAME_PARAMETER = "commodityName";
 
+    public static Result getWeather(Integer longitude, Integer latitude){
+        WSRequestHolder holder = WS.url(REMOTE_REST_SERVICE+"weather?longitude="+longitude+"&latitude="+latitude);
+        Promise<WSResponse> responsePromise = holder.get();
+        WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
+        System.out.println(rsp.getBody().toString());
+        return ok(rsp.getBody().toString());
+    }
+    
     public static Result staticContent(){
         WSRequestHolder holder = WS.url(REMOTE_COMMODITIES_SERVICE_URL);
         Promise<WSResponse> responsePromise = holder.get();
@@ -73,5 +82,4 @@ public class Application extends Controller {
  
         return ok(json);
     }
-
 }
