@@ -22,7 +22,7 @@ public class Application extends Controller {
     private final static String REMOTE_COMMODITIES_SERVICE_URL = "http://localhost:9005/Commodities";
     private final static String COMMODITY_NAME_PARAMETER = "commodityName";
 
-    public static Result getWeather(Integer longitude, Integer latitude){
+    public static Result getWeather(String longitude, String latitude){
         WSRequestHolder holder = WS.url(REMOTE_REST_SERVICE+"weather?longitude="+longitude+"&latitude="+latitude);
         Promise<WSResponse> responsePromise = holder.get();
         WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
@@ -65,7 +65,8 @@ public class Application extends Controller {
         WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
 
         // Later we will return response as is.
-        return ok("{\"Commodities\":" + rsp.getBody() + "}");
+       // return ok("{\"Commodities\":" + rsp.getBody() + "}");
+        return ok(rsp.getBody());
     }
 
     public static Result getRemoteCommodity(String commodityName) {
@@ -74,12 +75,12 @@ public class Application extends Controller {
         WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
         JsonNode json = null;
         
-        try{
+/*        try{
         	json = Json.toJson(rsp.getBody());
         }catch(Exception e){
         	//TODO : return empty json
-        }
+        }*/
  
-        return ok(json);
+        return ok(rsp.getBody());
     }
 }
