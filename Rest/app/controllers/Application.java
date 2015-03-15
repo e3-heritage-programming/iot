@@ -38,7 +38,7 @@ public class Application extends Controller {
     	}
     }
     
-    public static Result getWeather(Integer longitude, Integer latitude){
+    public static Result getWeather(String longitude, String latitude){
 
         WSRequestHolder holder = WS.url("http://api.openweathermap.org/data/2.5/weather?lat="+latitude+"&lon="+longitude);
 

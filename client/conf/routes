@@ -4,7 +4,9 @@
 
 # Home page
 GET     /                           controllers.Application.index()
-GET		/webServiceExample			controllers.Application.staticContent()
+GET		/webServiceExampleData			controllers.Application.consumeExternalWebserviceData()
+GET		/webServiceExampleRender			controllers.Application.consumeExternalWebserviceRender()
+
 
 
 # RESTful Service
