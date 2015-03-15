@@ -21,7 +21,7 @@ $(function() {
     	    	var temperatureResponseString = "No";
     	    	var userTemperature = -1000;
     	    	
-    	    	$.get("/weather?longitude="+longitude+"&latitude="+latitude, function( data ) {
+/*    	    	$.get("/weather?longitude="+longitude+"&latitude="+latitude, function( data ) {
     	    		alert(userTemperature);
     	    		userTemperature = parseInt(data);
 		    	    
@@ -29,7 +29,7 @@ $(function() {
 		    	    	temperaturegood = true;
 		    	    	temperatureResponseString = "Yes";
 		    	    }
-    	    	});    	 
+    	    	});    	 */
     	    	
     	    	$.get(  "/RemoteCommodities/"+$(this).val(), function( data ) {
 	    		    //JSON FORMAT: "{\"commodity\":[{\"commodityName\":\"wheat\",\"rate\":\"5\",\"unit\":\"kWh\"}]}"

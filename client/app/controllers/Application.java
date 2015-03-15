@@ -55,6 +55,11 @@ public class Application extends Controller {
         
         return ok(views.html.Application.index.render(commodities));
     }
+    
+    
+    public static Result index(){
+    	return ok("Welcome to my First Web Application!!");
+    }
 
     public static Result getRemoteCommodities() {
         //Used for tests:

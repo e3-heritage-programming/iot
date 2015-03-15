@@ -3,12 +3,13 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.staticContent()
+GET     /                           controllers.Application.index()
+GET		/webServiceExample			controllers.Application.staticContent()
 
 
 # RESTful Service
 
-GET     /weather 				    controllers.Application.getWeather(longitude: Integer, latitude: Integer)
+GET     /weather/:longitude/:latitude 				    controllers.Application.getWeather(longitude: String, latitude: String)
 
 # Calls Remote Service that returns all commodity names.
 GET		/RemoteCommodities				controllers.Application.getRemoteCommodities()
