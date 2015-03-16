@@ -31,7 +31,7 @@ public class Application extends Controller {
     
     /**
      *  Query an external webApplication and display the result data in your web Application.
-     */
+     */I AM BATMAN
     public static Result consumeExternalWebserviceData(){
         WSRequestHolder holder = WS.url(REMOTE_COMMODITIES_SERVICE_URL);
         Promise<WSResponse> responsePromise = holder.get();
