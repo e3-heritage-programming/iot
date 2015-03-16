@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class Application extends Controller {
 
     // TODO read from application settings/configuration
+	// Dummy comment (JL)
 	private final static String REMOTE_REST_SERVICE = "http://localhost:9005/";
     private final static String REMOTE_COMMODITIES_SERVICE_URL = "http://localhost:9005/Commodities";
 
