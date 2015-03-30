@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import com.sample.Commodities;
 import com.sample.Commodity;
+import com.sample.Location;
+import com.sample.Locations;
 
 import play.*;
 
@@ -23,5 +25,16 @@ public class Global extends GlobalSettings {
 		data.put(heating.getCommodityName(), heating);
 		data.put(airCondition.getCommodityName(), airCondition);
 		Commodities.setCommodities(data);
+		
+		
+		
+		HashMap<String, Location> locationData = new HashMap<String, Location>(5);
+		Location location1 = new Location("Montreal", "Canada");
+		Location location2 = new Location("Toronto", "Canada");
+		
+		locationData.put(location1.getLocationName(), location1);
+		locationData.put(location2.getLocationName(), location2);	
+		Locations.setCommodities(locationData);
+		
 	}
 }

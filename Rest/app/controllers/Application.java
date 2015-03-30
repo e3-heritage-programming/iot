@@ -16,6 +16,7 @@ import views.html.index;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.sample.Commodities;
 import com.sample.Commodity;
+import com.sample.Locations;
 
 public class Application extends Controller {
 
@@ -69,6 +70,13 @@ public class Application extends Controller {
     public static Result getCommodities(){
     	return ok("{\"Commodities\":" + Json.toJson(Commodities.getAllCommodities() ) + "}");
     	
+    }
+    
+    /**
+     * @return  Array of location names.
+     */
+    public static Result getLocations(){
+    	return ok("{\"Locations\":" + Json.toJson(Locations.getAllLocations() ) + "}");
     }
 
 }
