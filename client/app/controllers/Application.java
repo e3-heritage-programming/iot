@@ -17,14 +17,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class Application extends Controller {
 
     // TODO read from application settings/configuration
-<<<<<<< HEAD
-	// Dummy comment (JL)
-	private final static String REMOTE_REST_SERVICE = "http://localhost:9005/";
-    private final static String REMOTE_COMMODITIES_SERVICE_URL = "http://localhost:9005/Commodities";
-=======
 	private final static String REMOTE_REST_SERVICE = "https://polar-scrubland-6861.herokuapp.com";
     private final static String REMOTE_COMMODITIES_SERVICE_URL = REMOTE_REST_SERVICE + "/Commodities";
->>>>>>> master
 
 
     public static Result getWeather(String longitude, String latitude){
