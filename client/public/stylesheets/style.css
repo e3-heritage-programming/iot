@@ -18,3 +18,24 @@
 	/* bring your own prefixes */
 	 transform: translate(-50%, -50%);
 }
+
+.location-table
+{
+	 position: fixed;
+	 top: 23%;
+	 left: 50%;
+	 /* bring your own prefixes */
+	 transform: translate(-50%, -50%);
+  /*  position: fixed;
+    top: 100px;
+    left:110px; */
+}
+
+.location-dropdown-divclass
+{
+	position: fixed;
+	top: 15%;
+	left: 50%;
+	/* bring your own prefixes */
+	 transform: translate(-50%, -50%);
+}
