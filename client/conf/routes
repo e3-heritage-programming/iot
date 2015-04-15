@@ -7,6 +7,31 @@ GET     /                           controllers.Application.index()
 GET		/webServiceExampleData			controllers.Application.consumeExternalWebserviceData()
 GET		/webServiceExampleRender			controllers.Application.consumeExternalWebserviceRender()
 
+GET		/locationData			controllers.Application.consumeExternalLocationData()
+GET		/locationRender			controllers.Application.consumeExternalLocationRender()
+
+
+# HOMEWORK:
+#
+# Ask them to rebase/merge if necessary on their branch
+#
+#
+# Once Locations will be deployed, we issue homework assignment 
+# Create two more routes 
+# create their own methods to handle these 2 new routes
+# GET /locationData     (display the JSON object)      
+# GET /locationRender   (drop down menu filled with location information and navigation bar, and they can customize it however they wish)
+# HINT1: Need to access Locations (not Commodities) 
+# HINT2: Need to create own bootstrap/index.scala.html to render the UI
+#
+# Think about what kind of aggregated web service they want to build.... come up with ideas...
+# 
+# How to debug in Java (we create a bug and ask them to fix it)
+#
+
+
+
+
 
 
 # RESTful Service
@@ -18,6 +43,12 @@ GET		/RemoteCommodities				controllers.Application.getRemoteCommodities()
 
 # Return specific commodity information
 GET		/RemoteCommodities/:commodityName	controllers.Application.getRemoteCommodity(commodityName: String)
+
+# Calls Remote Service that returns all commodity names.
+GET		/RemoteLocations				controllers.Application.getRemoteLocations()
+
+# Return specific commodity information
+GET		/RemoteLocations/:locationName	controllers.Application.getRemoteLocation(locationName: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

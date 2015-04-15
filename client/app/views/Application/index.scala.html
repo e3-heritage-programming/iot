@@ -1,4 +1,4 @@
-@(commodities: Map[String, String])
+@(locations: Map[String, String])
 <html>
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -17,11 +17,12 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
             </button>
-            <a class="navbar-brand" href="#">Appliance Rate Client</a>
+            <a class="navbar-brand" href="#">Location Application Client!!</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
+                 <li class="active"><a href="#">About Us</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -31,29 +32,29 @@
 	<span class="sr-only">Error:</span>
 </div>
 
-<div id="commodity-dropdown-divid" class="commodity-dropdown-divclass">
-	<select id="commodity-dropdown">
-	    <option selected="default">Select Commodity</option>
-	    @for((commodityName, commodityRate) <- commodities) {
-	    	<option value='@commodityName'>@commodityName</option>
+<div id="location-dropdown-divid" class="location-dropdown-divclass">
+	<select id="location-dropdown">
+	    <option selected="default">Select Location</option>
+	    @for((locationName, countryName) <- locations) {
+	    	<option value='@locationName'>@locationName</option>
 	    }
 	</select>
 </div>
 
-<div id="rate-table" class="rate-table">
+<div id="location-table" class="location-table">
     <!--<button id="btnRefreshData">Refresh Data</button>-->
-    <table class="table" id="appliance_rate_table">
+    <table class="table" id="location_table">
         <thead>
 	        <tr>
-	            <th>Commodity</th>
-	            <th>Rate</th>
-	            <th>Unit</th>
-	            <th>Recommended To Consume</th>
+	            <th>Location</th>
+	            <th>Country</th>
+	            <th>Warm</th>
 	        </tr>
         </thead>
-        <tbody id="commodity-table-body">
+        <tbody id="location-table-body">
         </tbody>
     </table>
 </div>
+
 <body>
 </html>
