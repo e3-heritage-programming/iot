@@ -21,7 +21,7 @@ GET		/RemoteCommodities				controllers.Application.getRemoteCommodities()
 GET		/RemoteCommodities/:commodityName	controllers.Application.getRemoteCommodity(commodityName: String)
 
 # Return specific location information
-GET		/RemoteCommodities/:locationName	controllers.Application.getRemoteCommodity(commodityName: String)
+GET		/RemoteLocations/:locationName	controllers.Application.getRemoteLocations(locationName: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
