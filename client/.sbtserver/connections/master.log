@@ -1,0 +1,7 @@
+New log file opened at Mon Mar 30 19:22:19 EDT 2015 by 420@Matthew-Laptop-Of-Awesomeness
+Taking next connection to: 55466
+New client attempting to connect on port: 55467-55466
+  Address = /192.168.0.58:55466
+This client on port 55467 has uuid bfec76b9-8258-4ba2-b537-f2d1626b3c93 configName activator humanReadableName Activator protocolVersion 1 featureTags Vector()
+Connected Clients: activator-bfec76b9-8258-4ba2-b537-f2d1626b3c93
+Taking next connection to: 55466

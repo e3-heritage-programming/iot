@@ -1,0 +1,29 @@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("javascripts/hello.js")" type="text/javascript">></script>
+        <script type="application/javascript">
+            function changebackground() {
+                var colors = ["#0099cc","#c0c0c0","#587b2e",
+                    "#990000","#1C8200","#987baa","#464646",
+                    "#AA8971","#1987FC","#99081E"];
+                document.body.style.background = colors[5];
+                setInterval(function() {
+                    var randomcolor = Math.floor(Math.random() * colors.length);
+                    document.body.style.background = colors[randomcolor];
+                }, 10000);
+                $('#thome').css('background', '#717171')
+            }
+        </script>
+    </head>
+    <body onload="changebackground()">
+        @content
+    </body>
+</html>

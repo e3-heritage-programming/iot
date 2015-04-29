@@ -18,3 +18,13 @@
 	/* bring your own prefixes */
 	 transform: translate(-50%, -50%);
 }
+
+body
+{
+    background-color: "lightskyblue";
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    -webkit-transition: background 10.0s
+}
