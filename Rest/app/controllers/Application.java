@@ -23,60 +23,60 @@ public class Application extends Controller {
     public static Result index() {
         return ok(index.render("Your new application is ready."));
     }
-    
-    /**
-     * @param commodityName	String 
-     * @return	Details about the specific commodity request if present. If not commodity not found.
-     */
-    public static Result getCommodity(String commodityName){
-    	Commodity value = Commodities.getCommodity(commodityName);
-    	
-    	if (value != null){
-    	String tempJson = "{\"commodity\":["+Json.toJson(value) + "]}";
-    		return ok(tempJson);//Json.toJson(value));
-    	}else{
-    		return ok("Commodity not found");
-    	}
-    }
-    
-    public static Result getWeather(String longitude, String latitude){
 
-        WSRequestHolder holder = WS.url("http://api.openweathermap.org/data/2.5/weather?lat="+latitude+"&lon="+longitude);
+    /**
+     * @param commodityName String
+     * @return Details about the specific commodity request if present. If not commodity not found.
+     */
+    public static Result getCommodity(String commodityName) {
+        Commodity value = Commodities.getCommodity(commodityName);
+
+        if (value != null) {
+            String tempJson = "{\"commodity\":[" + Json.toJson(value) + "]}";
+            return ok(tempJson);//Json.toJson(value));
+        } else {
+            return ok("Commodity not found");
+        }
+    }
+
+    public static Result getWeather(String longitude, String latitude) {
+
+        WSRequestHolder holder = WS.url("http://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude);
 
         Promise<WSResponse> responsePromise = holder.get();
         WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
-        
+
         JsonNode json = null;
-        
-        try{
-        	json = Json.parse(rsp.getBody());
-        }catch(Exception e){//could be of wrong response from server or no response at all (non 200 http request)
-        	//return empty list of commodities
-        	
+
+        try {
+            json = Json.parse(rsp.getBody());
+        } catch (Exception e) {//could be of wrong response from server or no response at all (non 200 http request)
+            //return empty list of commodities
+
         }
-        
+
         JsonNode mainParentNode = json.get("main");
-        
+
         double temperatureKelvin = Double.parseDouble(mainParentNode.findValue("temp").toString());
         double temperatureCelcius = temperatureKelvin - 273.15;
-                
+
         return ok(Double.toString(temperatureCelcius));
     }
-    
-    
+
+
     /**
-     * @return  Array of commodity names.
+     * @return Array of commodity names.
      */
-    public static Result getCommodities(){
-    	return ok("{\"Commodities\":" + Json.toJson(Commodities.getAllCommodities() ) + "}");
-    	
+    public static Result getCommodities() {
+        return ok("{\"Commodities\":" + Json.toJson(Commodities.getAllCommodities()) + "}");
+
     }
-    
+
     /**
-     * @return  Array of location names.
+     * @return Array of location names.
      */
-    public static Result getLocations(){
-    	return ok("{\"Locations\":" + Json.toJson(Locations.getAllLocations() ) + "}");
+    public static Result getLocations() {
+        return ok("{\"Locations\":" + Json.toJson(Locations.getAllLocations()) + "}");
     }
 
 }
