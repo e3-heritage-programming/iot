@@ -31,11 +31,8 @@ public class Global extends GlobalSettings {
 
         List<Location> locations = new ArrayList<>();
 
-        Location location1 = new Location("Montreal", "Canada");
-        Location location2 = new Location("Toronto", "Canada");
-
-        locations.add(location1);
-        locations.add(location2);
+        locations.add(new Location("Montreal", "Canada"));
+        locations.add(new Location("Toronto", "Canada"));
 
         Locations.setLocations(locations);
     }

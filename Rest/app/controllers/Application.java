@@ -55,12 +55,13 @@ public class Application extends Controller {
         Location location = Locations.getLocation(id);
 
         // Check if location with id was found
-        if (location == null) {
+        if (location == null)
             return ok("Error: Location not found");
-        }
+
 
         WSRequestHolder holder = WS.url("http://api.openweathermap.org/data/2.5/weather?q=" +
                 location.getLocationName() + "," + location.getCountryName() + "&units=metric");
+
         WSResponse rsp = holder.get().get(60, TimeUnit.SECONDS);
 
         // Return json reply from openweathermap

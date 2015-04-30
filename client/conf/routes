@@ -12,8 +12,8 @@ GET        /weatherRender                           controllers.Application.cons
 
 # RESTful Service
 
-GET        /weather/pos/:latitude/:longitude        controllers.Application.getWeatherByLatLong(latitude: String, longitude: String)
-GET        /weather/id                     controllers.Application.getWeatherById(id: Integer)
+GET        /weather/pos                             controllers.Application.getWeatherByLatLong(latitude: String, longitude: String)
+GET        /weather/id                              controllers.Application.getWeatherById(id: Integer)
 
 # Calls Remote Service that returns all commodity names.
 GET        /RemoteCommodities                       controllers.Application.getRemoteCommodities()
