@@ -27,17 +27,14 @@ public class Application extends Controller {
     public static Result getWeatherByLatLong(String latitude, String longitude) {
         WSRequestHolder holder =
                 WS.url(REMOTE_REST_SERVICE + "weather?latitude=" + latitude + "&longitude=" + longitude);
-        Promise<WSResponse> responsePromise = holder.get();
-        WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
-        System.out.println(rsp.getBody());
+        WSResponse rsp = holder.get().get(60, TimeUnit.SECONDS);
         return ok(rsp.getBody());
     }
 
     public static Result getWeatherById(int id) {
-        WSRequestHolder holder = WS.url(REMOTE_REST_SERVICE + "/weather/id?id=" + id);
-        Promise<WSResponse> responsePromise = holder.get();
-        WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
-        System.out.println(rsp.getBody());
+        WSRequestHolder holder =
+                WS.url(REMOTE_REST_SERVICE + "/weather/id?id=" + id);
+        WSResponse rsp = holder.get().get(60, TimeUnit.SECONDS);
         return ok(rsp.getBody());
     }
 
@@ -155,13 +152,12 @@ public class Application extends Controller {
             JsonNode json = Json.parse(rsp.getBody());
             JsonNode locationsParentNode = json.get("Locations");
 
-            for (int jsonCounter = 0; jsonCounter < locationsParentNode.size(); jsonCounter++) {
-                JsonNode locationNode = locationsParentNode.get(jsonCounter);
+            for (JsonNode locationNode : locationsParentNode) {
                 locations.put(Integer.parseInt(locationNode.findValue("id").toString()),
                         (locationNode.findValue("locationName") + ", " + locationNode.findValue("countryName")).replace("\"", ""));
             }
         } catch (Exception e) {
-            //could be of wrong response from server or no response at all (non 200 http request)
+            // could be of wrong response from server or no response at all (non 200 http request)
             // will return empty list of locations
         }
 

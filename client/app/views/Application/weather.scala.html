@@ -32,7 +32,7 @@
         </div>
 
         <div id="location-dropdown-divid" class="location-dropdown-divclass">
-            <select id="location-dropdown">
+            <select id="location-dropdown" title="Select Location">
                 <option selected="default">Select Location</option>
                 @for((locationId, locationName) <- locations) {
                     <option value='@locationId'>@locationName</option>
@@ -45,7 +45,9 @@
                 <thead>
                     <tr>
                         <th>Location</th>
-                        <td>Temperature</td>
+                        <th>Temperature</th>
+                        <th>Weather</th>
+                        <th>Wind</th>
                     </tr>
                 </thead>
                 <tbody id="location-table-body">

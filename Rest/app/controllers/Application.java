@@ -42,53 +42,29 @@ public class Application extends Controller {
     }
 
     public static Result getWeatherByLatLong(String longitude, String latitude) {
+        WSRequestHolder holder = WS.url("http://api.openweathermap.org/data/2.5/weather?lat="
+                + latitude + "&lon=" + longitude + "&units=metric");
 
-        WSRequestHolder holder = WS.url("http://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude);
+        WSResponse rsp = holder.get().get(60, TimeUnit.SECONDS);
 
-        Promise<WSResponse> responsePromise = holder.get();
-        WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
-
-        JsonNode json = null;
-
-        try {
-            json = Json.parse(rsp.getBody());
-        } catch (Exception e) {//could be of wrong response from server or no response at all (non 200 http request)
-            //return empty list of commodities
-
-        }
-
-        JsonNode mainParentNode = json.get("main");
-
-        double temperatureKelvin = Double.parseDouble(mainParentNode.findValue("temp").toString());
-        double temperatureCelcius = temperatureKelvin - 273.15;
-
-        return ok(Double.toString(temperatureCelcius));
+        // Return json reply from openweathermap
+        return ok(rsp.getBody());
     }
 
     public static Result getWeatherById(int id) {
-
         Location location = Locations.getLocation(id);
 
-        WSRequestHolder holder = WS.url("http://api.openweathermap.org/data/2.5/weather?q=" + location.getLocationName() + "," + location.getCountryName());
-
-        Promise<WSResponse> responsePromise = holder.get();
-        WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
-
-        JsonNode json = null;
-
-        try {
-            json = Json.parse(rsp.getBody());
-        } catch (Exception e) {//could be of wrong response from server or no response at all (non 200 http request)
-            //return empty list of commodities
-
+        // Check if location with id was found
+        if (location == null) {
+            return ok("Error: Location not found");
         }
 
-        JsonNode mainParentNode = json.get("main");
+        WSRequestHolder holder = WS.url("http://api.openweathermap.org/data/2.5/weather?q=" +
+                location.getLocationName() + "," + location.getCountryName() + "&units=metric");
+        WSResponse rsp = holder.get().get(60, TimeUnit.SECONDS);
 
-        double temperatureKelvin = Double.parseDouble(mainParentNode.findValue("temp").toString());
-        double temperatureCelcius = temperatureKelvin - 273.15;
-        DecimalFormat df = new DecimalFormat("#.0");
-        return ok(df.format(temperatureCelcius));
+        // Return json reply from openweathermap
+        return ok(rsp.getBody());
     }
 
 
