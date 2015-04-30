@@ -6,12 +6,14 @@
 GET        /                                        controllers.Application.index()
 GET        /webServiceExampleData                   controllers.Application.consumeExternalWebserviceData()
 GET        /webServiceExampleRender                 controllers.Application.consumeExternalWebserviceRender()
+GET        /weatherRender                           controllers.Application.consumeWeatherRender()
 
 
 
 # RESTful Service
 
-GET        /weather/:longitude/:latitude            controllers.Application.getWeather(longitude: String, latitude: String)
+GET        /weather/pos/:latitude/:longitude        controllers.Application.getWeatherByLatLong(latitude: String, longitude: String)
+GET        /weather/id                     controllers.Application.getWeatherById(id: Integer)
 
 # Calls Remote Service that returns all commodity names.
 GET        /RemoteCommodities                       controllers.Application.getRemoteCommodities()

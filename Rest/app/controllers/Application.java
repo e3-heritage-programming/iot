@@ -1,9 +1,11 @@
 package controllers;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import com.sample.Location;
 import play.libs.Json;
 import play.libs.F.Promise;
 import play.libs.ws.WS;
@@ -39,7 +41,7 @@ public class Application extends Controller {
         }
     }
 
-    public static Result getWeather(String longitude, String latitude) {
+    public static Result getWeatherByLatLong(String longitude, String latitude) {
 
         WSRequestHolder holder = WS.url("http://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude);
 
@@ -61,6 +63,32 @@ public class Application extends Controller {
         double temperatureCelcius = temperatureKelvin - 273.15;
 
         return ok(Double.toString(temperatureCelcius));
+    }
+
+    public static Result getWeatherById(int id) {
+
+        Location location = Locations.getLocation(id);
+
+        WSRequestHolder holder = WS.url("http://api.openweathermap.org/data/2.5/weather?q=" + location.getLocationName() + "," + location.getCountryName());
+
+        Promise<WSResponse> responsePromise = holder.get();
+        WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
+
+        JsonNode json = null;
+
+        try {
+            json = Json.parse(rsp.getBody());
+        } catch (Exception e) {//could be of wrong response from server or no response at all (non 200 http request)
+            //return empty list of commodities
+
+        }
+
+        JsonNode mainParentNode = json.get("main");
+
+        double temperatureKelvin = Double.parseDouble(mainParentNode.findValue("temp").toString());
+        double temperatureCelcius = temperatureKelvin - 273.15;
+        DecimalFormat df = new DecimalFormat("#.0");
+        return ok(df.format(temperatureCelcius));
     }
 
 

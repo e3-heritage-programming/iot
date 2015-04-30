@@ -11,7 +11,8 @@ GET        /Commodities                       controllers.Application.getCommodi
 # Return specific commodity information
 GET        /Commodities/:commodityName        controllers.Application.getCommodity(commodityName: String)
 
-GET        /weather                           controllers.Application.getWeather(longitude: String, latitude: String)
+GET        /weather/id                      controllers.Application.getWeatherById(id: Integer)
+GET        /weather/pos                       controllers.Application.getWeatherByLatLong(longitude: String, latitude: String)
 
 # Returns all location names.
 GET        /Locations                         controllers.Application.getLocations()

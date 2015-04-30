@@ -1,6 +1,8 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -17,12 +19,22 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class Application extends Controller {
 
     // TODO read from application settings/configuration
-    private final static String REMOTE_REST_SERVICE = "https://polar-scrubland-6861.herokuapp.com";
+    private final static String REMOTE_REST_SERVICE = "http://localhost:9001";
     private final static String REMOTE_COMMODITIES_SERVICE_URL = REMOTE_REST_SERVICE + "/Commodities";
+    private final static String REMOTE_LOCATION_SERVICE_URL = REMOTE_REST_SERVICE + "/Locations";
 
 
-    public static Result getWeather(String longitude, String latitude) {
-        WSRequestHolder holder = WS.url(REMOTE_REST_SERVICE + "weather?longitude=" + longitude + "&latitude=" + latitude);
+    public static Result getWeatherByLatLong(String latitude, String longitude) {
+        WSRequestHolder holder =
+                WS.url(REMOTE_REST_SERVICE + "weather?latitude=" + latitude + "&longitude=" + longitude);
+        Promise<WSResponse> responsePromise = holder.get();
+        WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
+        System.out.println(rsp.getBody());
+        return ok(rsp.getBody());
+    }
+
+    public static Result getWeatherById(int id) {
+        WSRequestHolder holder = WS.url(REMOTE_REST_SERVICE + "/weather/id?id=" + id);
         Promise<WSResponse> responsePromise = holder.get();
         WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
         System.out.println(rsp.getBody());
@@ -130,5 +142,29 @@ public class Application extends Controller {
         }*/
 
         return ok(rsp.getBody());
+    }
+
+
+    public static Result consumeWeatherRender() {
+        WSRequestHolder holder = WS.url(REMOTE_LOCATION_SERVICE_URL);
+        WSResponse rsp = holder.get().get(60, TimeUnit.SECONDS);
+
+        Map<Integer, String> locations = new HashMap<>();
+
+        try {
+            JsonNode json = Json.parse(rsp.getBody());
+            JsonNode locationsParentNode = json.get("Locations");
+
+            for (int jsonCounter = 0; jsonCounter < locationsParentNode.size(); jsonCounter++) {
+                JsonNode locationNode = locationsParentNode.get(jsonCounter);
+                locations.put(Integer.parseInt(locationNode.findValue("id").toString()),
+                        (locationNode.findValue("locationName") + ", " + locationNode.findValue("countryName")).replace("\"", ""));
+            }
+        } catch (Exception e) {
+            //could be of wrong response from server or no response at all (non 200 http request)
+            // will return empty list of locations
+        }
+
+        return ok(views.html.Application.weather.render(locations));
     }
 }
