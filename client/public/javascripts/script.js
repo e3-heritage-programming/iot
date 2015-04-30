@@ -3,24 +3,25 @@ $(function () {
 
     $("#commodity-dropdown").change(function () {
         $("#commodity-table-body").empty();
+        var commodityId = $(this).val();
+        var commodityName = $(this).find("option:selected").text();
 
         var longitude = -1;
         var latitude = -1;
 
         function getLocation() {
-            if (navigator.geolocation) {
+            if (navigator.geolocation)
                 navigator.geolocation.getCurrentPosition(function (position) {
                     latitude = position.coords.latitude;
                     longitude = position.coords.longitude;
                 });
-            } else {
+            else
                 alert("Geolocation is not supported by this browser.");
-            }
         }
 
         var userTemperature = -1000;
 
-        $.get("/RemoteCommodities/" + $(this).val(), function (data) {
+        $.get("/Commodities/Id?id=" + commodityId, function (data) {
             var obj = jQuery.parseJSON(data);
             $.each(obj.commodity, function (i, v) {
                 var commodityUpperThresholdTemp = parseInt(v.upperTempThreshold);
@@ -43,7 +44,7 @@ $(function () {
         var locationId = $(this).val();
         var locationName = $(this).find("option:selected").text();
 
-        $.get("/weather/id?id=" + locationId, function (data) {
+        $.get("/Weather/id?id=" + locationId, function (data) {
             var weather = jQuery.parseJSON(data);
             console.log(weather);
             $("#location-table-body").append(getRow(

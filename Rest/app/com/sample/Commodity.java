@@ -2,8 +2,13 @@ package com.sample;
 
 public class Commodity {
 
-	Commodity(){
-	}
+	private int id;
+	private String commodityName;
+	private String rate;
+	private String unit;
+	private double upperTempThreshold; //commodity recommended to use under this temp. Otherwise more pricier.
+	private double lowerTempThreshold; //commodity recommended to use over this temp. Otherwise more pricier.
+	private double increaseInCost; //possible price increase if commodity not in norm temp range
 	
 	public Commodity(String commodityName, String rate, String unit, double upperTempThreshold, double lowerTempThreshold){
 		this.commodityName = commodityName;
@@ -13,12 +18,7 @@ public class Commodity {
 		this.lowerTempThreshold = lowerTempThreshold;
 	}
 	
-	private String commodityName;
-	private String rate;
-	private String unit;
-	private double upperTempThreshold; //commodity recommended to use under this temp. Otherwise more pricier. 
-	private double lowerTempThreshold; //commodity recommended to use over this temp. Otherwise more pricier.
-	private double increaseInCost; //possible price increase if commodity not in norm temp range
+
 
 
 	public double getIncreaseInCost() {
@@ -67,5 +67,13 @@ public class Commodity {
 
 	public void setLowerTempThreshold(double lowerTempThreshold) {
 		this.lowerTempThreshold = lowerTempThreshold;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

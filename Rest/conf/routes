@@ -3,20 +3,16 @@
 # ~~~~
 
 # Home page
-GET        /                                  controllers.Application.index()
+GET        /                                controllers.Application.index()
 
 # RESTful Service
 # Returns all commodity names.
-GET        /Commodities                       controllers.Application.getCommodities()
+GET        /Commodities                     controllers.Application.getCommodities()
 # Return specific commodity information
-GET        /Commodities/:commodityName        controllers.Application.getCommodity(commodityName: String)
+GET        /Commodities/Id        controllers.Application.getCommodity(id: Integer)
 
-GET        /weather/id                        controllers.Application.getWeatherById(id: Integer)
-GET        /weather/pos                       controllers.Application.getWeatherByLatLong(longitude: String, latitude: String)
+GET        /Weather/Id                      controllers.Application.getWeatherById(id: Integer)
+GET        /Weather/Pos                     controllers.Application.getWeatherByLatLong(longitude: String, latitude: String)
 
 # Returns all location names.
-GET        /Locations                         controllers.Application.getLocations()
-
-# Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file                      controllers.Assets.at(path="/public", file)
-
+GET        /Locations                       controllers.Application.getLocations()

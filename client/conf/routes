@@ -1,5 +1,5 @@
 # Routes
-# This file defines all application routes (Higher priority routes first) controllers.Application.index()
+# This file defines all application routes (Higher priority routes first) controllers.Application.commodity()
 # ~~~~
 
 # Home page
@@ -12,14 +12,14 @@ GET        /weatherRender                           controllers.Application.cons
 
 # RESTful Service
 
-GET        /weather/pos                             controllers.Application.getWeatherByLatLong(latitude: String, longitude: String)
-GET        /weather/id                              controllers.Application.getWeatherById(id: Integer)
+GET        /Weather/pos                             controllers.Application.getWeatherByLatLong(latitude: String, longitude: String)
+GET        /Weather/id                              controllers.Application.getWeatherById(id: Integer)
 
 # Calls Remote Service that returns all commodity names.
-GET        /RemoteCommodities                       controllers.Application.getRemoteCommodities()
+GET        /Commodities                       controllers.Application.getRemoteCommodities()
 
 # Return specific commodity information
-GET        /RemoteCommodities/:commodityName        controllers.Application.getRemoteCommodity(commodityName: String)
+GET        /Commodities/Id        controllers.Application.getRemoteCommodity(id: Integer)
 
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file                            controllers.Assets.at(path="/public", file)
