@@ -3,6 +3,7 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import play.Logger;
 import play.libs.Json;
 import play.mvc.Result;
 
@@ -19,6 +20,8 @@ public class Application extends Controller {
     static {
         Config conf = ConfigFactory.load();
         REMOTE_REST_SERVICE = conf.getString("application.remote");
+        
+        Logger.debug("Rest: " + REMOTE_REST_SERVICE);
 
         REMOTE_COMMODITIES_SERVICE_URL = REMOTE_REST_SERVICE + "/Commodities";
         REMOTE_LOCATION_SERVICE_URL = REMOTE_REST_SERVICE + "/Locations";
