@@ -49,7 +49,7 @@ public class Application extends Controller {
 
         JsonNode json = Json.parse(getBody(REMOTE_COMMODITIES_SERVICE_URL));
         for (JsonNode commodityNode : json.get("Commodities")) {
-            commodities.put(Integer.parseInt(commodityNode.findValue("commodityId").toString()),
+            commodities.put(Integer.parseInt(commodityNode.findValue("id").toString()),
                     commodityNode.findValue("commodityName").toString().replace("\"", ""));
         }
 

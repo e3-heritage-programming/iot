@@ -46,7 +46,6 @@ $(function () {
 
         $.get("/Weather/id?id=" + locationId, function (data) {
             var weather = jQuery.parseJSON(data);
-            console.log(weather);
             $("#location-table-body").append(getRow(
                 getCell(locationName) +
                 getCell(weather.main.temp + "°C") +
