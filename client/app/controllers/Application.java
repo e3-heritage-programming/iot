@@ -18,7 +18,11 @@ public class Application extends Controller {
 
     // TODO read from application settings/configuration
 	private final static String REMOTE_REST_SERVICE = "https://polar-scrubland-6861.herokuapp.com";
+	//private final static String REMOTE_REST_SERVICE = "http://192.168.2.27:9000";
     private final static String REMOTE_COMMODITIES_SERVICE_URL = REMOTE_REST_SERVICE + "/Commodities";
+    private final static String REMOTE_LOCATIONS_SERVICE_URL = REMOTE_REST_SERVICE + "/Locations";
+    
+    private final static String REMOTE_WEATHER_SERVICE_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
 
 
     public static Result getWeather(String longitude, String latitude){
@@ -87,6 +91,32 @@ public class Application extends Controller {
         return ok(views.html.Application.index.render(commodities));
     }
     
+    public static Result consumeLocationWebserviceRender(){
+        WSRequestHolder holder = WS.url(REMOTE_LOCATIONS_SERVICE_URL);
+        Promise<WSResponse> responsePromise = holder.get();
+        WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
+
+        JsonNode json = null;
+        Map<String,String> locations = new HashMap<String,String>();
+        
+        try{
+        	json = Json.parse(rsp.getBody());
+        }catch(Exception e){//could be of wrong response from server or no response at all (non 200 http request)
+        	//return empty list of commodities
+        	return ok(views.html.Application.index.render(locations));
+        }
+        
+        //JSON FORMAT : "{\"Commodities\":[{\"commodityName\":\"wheat\",\"rate\":\"5$\",\"unit\":\"kWh\"},{\"commodityName\":\"rice\",\"rate\":\"5$\",\"unit\":\"kWh\"}]}"
+        JsonNode commodityParentNode = json.get("Locations");
+        
+        for(int jsonCounter=0; jsonCounter<commodityParentNode.size(); jsonCounter++){
+            JsonNode commodityNode = commodityParentNode.get(jsonCounter);
+            locations.put(commodityNode.findValue("locationName").toString().replace("\"",""), commodityNode.findValue("countryName").toString().replace("\"",""));
+        }
+        
+        return ok(views.html.Application.location.render(locations));
+    }
+    
     
     /**
      *  Displays default content of your web application.
@@ -129,5 +159,23 @@ public class Application extends Controller {
         }*/
  
         return ok(rsp.getBody());
+    }
+    
+    
+    public static Result getRemoteLocation(String locationName){
+    	
+        WSRequestHolder holder = WS.url(REMOTE_WEATHER_SERVICE_URL+"/"+locationName);
+        Promise<WSResponse> responsePromise = holder.get();
+        WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
+        /*          JsonNode json = null;
+        
+      try{
+        	json = Json.toJson(rsp.getBody());
+        }catch(Exception e){
+        	//TODO : return empty json
+        }*/
+ 
+        return ok(rsp.getBody());
+    	
     }
 }
