@@ -1,5 +1,3 @@
-
-
 import com.sample.Commodities;
 import com.sample.Commodity;
 import com.sample.Location;
@@ -13,7 +11,6 @@ import java.util.List;
 
 public class Global extends GlobalSettings {
 
-
     public void onStart(Application app) {
         Logger.info("Application about to load default resource");
 
@@ -22,7 +19,7 @@ public class Global extends GlobalSettings {
         commodities.add(new Commodity("Appliances", "5$/kWh", "kWh", 25.0, -15.0));
         commodities.add(new Commodity("Water", "1$/100L", "Litres", 35, -25.0));
         commodities.add(new Commodity("Heating", "3$/kWh", "kWh", 10.0, -35.0));
-        commodities.add( new Commodity("Air-Condition", "4$/kWh", "kWh", 35.0, 17.0));
+        commodities.add(new Commodity("Air-Condition", "4$/kWh", "kWh", 35.0, 17.0));
 
         Commodities.setCommodities(commodities);
 
@@ -31,6 +28,7 @@ public class Global extends GlobalSettings {
 
         locations.add(new Location("Montreal", "Canada"));
         locations.add(new Location("Toronto", "Canada"));
+        locations.add(new Location("Ste-Julie", "Canada"));
 
         Locations.setLocations(locations);
     }

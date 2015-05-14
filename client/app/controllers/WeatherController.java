@@ -28,7 +28,8 @@ public class WeatherController extends Controller {
     }
 
     public static Result getWeatherById(int id) {
-        return ok(getBody(REMOTE_WEATHER_SERVICE_URL + "/Id?id=" + id));
+        return ok(getBody(REMOTE_WEATHER_SERVICE_URL +
+                "/Id?id=" + id));
     }
 
 }
