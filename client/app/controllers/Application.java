@@ -1,9 +1,6 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
-import play.Logger;
 import play.libs.Json;
 import play.mvc.Result;
 
@@ -11,31 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Application extends Controller {
-
-    private final static String REMOTE_REST_SERVICE;
-    private final static String REMOTE_COMMODITIES_SERVICE_URL;
-    private final static String REMOTE_LOCATION_SERVICE_URL;
-    private final static String REMOTE_WEATHER_SERVICE_URL;
-
-    static {
-        Config conf = ConfigFactory.load();
-        REMOTE_REST_SERVICE = conf.getString("application.remote");
-
-        Logger.debug("Rest: " + REMOTE_REST_SERVICE);
-
-        REMOTE_COMMODITIES_SERVICE_URL = REMOTE_REST_SERVICE + "/Commodities";
-        REMOTE_LOCATION_SERVICE_URL = REMOTE_REST_SERVICE + "/Locations";
-        REMOTE_WEATHER_SERVICE_URL = REMOTE_REST_SERVICE + "/Weather";
-    }
-
-    public static Result getWeatherByLatLong(String latitude, String longitude) {
-        return ok(getBody(REMOTE_WEATHER_SERVICE_URL +
-                "/Pos?latitude=" + latitude + "&longitude=" + longitude));
-    }
-
-    public static Result getWeatherById(int id) {
-        return ok(getBody(REMOTE_WEATHER_SERVICE_URL + "/Id?id=" + id));
-    }
 
     /**
      * Query an external webApplication and display the result data in your web Application.
@@ -84,17 +56,5 @@ public class Application extends Controller {
     }
 
 
-    public static Result consumeWeatherRender() {
-        Map<Integer, String> locations = new HashMap<>();
 
-        JsonNode json = Json.parse(getBody(REMOTE_LOCATION_SERVICE_URL));
-        JsonNode locationsParentNode = json.get("Locations");
-
-        for (JsonNode locationNode : locationsParentNode) {
-            locations.put(Integer.parseInt(locationNode.findValue("id").toString()),
-                    (locationNode.findValue("locationName") + ", " + locationNode.findValue("countryName")).replace("\"", ""));
-        }
-
-        return ok(views.html.Application.weather.render(locations));
-    }
 }

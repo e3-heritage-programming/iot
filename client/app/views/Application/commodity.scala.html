@@ -1,27 +1,27 @@
 @(commodities: java.util.Map[Integer, String])
-    @main("Commodities") {
-        <div id="commodity-dropdown-divid" class="commodity-dropdown-divclass">
-            <select id="commodity-dropdown">
-                <option selected="default">Select Commodity</option>
-                @for((commodityId, commodityName) <- commodities) {
-                    <option value='@commodityId'>@commodityName</option>
-                }
-            </select>
-        </div>
+@main("Commodities") {
+    <div id="commodity-dropdown-divid" class="commodity-dropdown-divclass">
+        <select id="commodity-dropdown">
+            <option selected="default">Select Commodity</option>
+            @for((commodityId, commodityName) <- commodities) {
+                <option value='@commodityId'>@commodityName</option>
+            }
+        </select>
+    </div>
 
-        <div id="rate-table" class="rate-table">
-                <!--<button id="btnRefreshData">Refresh Data</button>-->
-            <table class="table" id="appliance_rate_table">
-                <thead>
-                    <tr>
-                        <th>Commodity</th>
-                        <th>Rate</th>
-                        <th>Unit</th>
-                        <th>Recommended To Consume</th>
-                    </tr>
-                </thead>
-                <tbody id="commodity-table-body">
-                </tbody>
-            </table>
-        </div>
-    }
+    <div id="rate-table" class="rate-table">
+            <!--<button id="btnRefreshData">Refresh Data</button>-->
+        <table class="table" id="appliance_rate_table">
+            <thead>
+                <tr>
+                    <th>Commodity</th>
+                    <th>Rate</th>
+                    <th>Unit</th>
+                    <th>Recommended To Consume</th>
+                </tr>
+            </thead>
+            <tbody id="commodity-table-body">
+            </tbody>
+        </table>
+    </div>
+}

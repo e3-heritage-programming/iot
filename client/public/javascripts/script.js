@@ -23,16 +23,16 @@ $(function () {
 
         $.get("/Commodities/Id?id=" + commodityId, function (data) {
             var obj = jQuery.parseJSON(data);
-            $.each(obj.commodity, function (i, v) {
-                var commodityUpperThresholdTemp = parseInt(v.upperTempThreshold);
-                var commodityLowerThresholdTemp = parseInt(v.lowerTempThreshold);
+            $.each(obj.commodity, function (key, value) {
+                var commodityUpperThresholdTemp = parseInt(value.upperTempThreshold);
+                var commodityLowerThresholdTemp = parseInt(value.lowerTempThreshold);
 
                 var temperatureResponse = userTemperature > commodityUpperThresholdTemp ||
                     userTemperature < commodityLowerThresholdTemp;
                 $("#commodity-table-body").append(getRow(
-                    getCell(v.commodityName) +
-                    getCell(v.rate) +
-                    getCell(v.unit) +
+                    getCell(value.commodityName) +
+                    getCell(value.rate) +
+                    getCell(value.unit) +
                     getCell(temperatureResponse ? "Yes" : "No")
                 ));
             });
@@ -44,7 +44,7 @@ $(function () {
         var locationId = $(this).val();
         var locationName = $(this).find("option:selected").text();
 
-        $.get("/Weather/id?id=" + locationId, function (data) {
+        $.get("/Weather/Id?id=" + locationId, function (data) {
             var weather = jQuery.parseJSON(data);
             $("#location-table-body").append(getRow(
                 getCell(locationName) +
