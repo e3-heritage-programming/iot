@@ -20,7 +20,7 @@ public class Application extends Controller {
     static {
         Config conf = ConfigFactory.load();
         REMOTE_REST_SERVICE = conf.getString("application.remote");
-        
+
         Logger.debug("Rest: " + REMOTE_REST_SERVICE);
 
         REMOTE_COMMODITIES_SERVICE_URL = REMOTE_REST_SERVICE + "/Commodities";
