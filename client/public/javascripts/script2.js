@@ -79,7 +79,7 @@
 $(function() {
       $("#commodity-dropdown").change(function() {
     	    	$("#commodity-table-body").empty();
-
+/*
     	    	var x = document.getElementById("alert alert-danger");
     	    	var longitude= -1;
     	    	var latitude = -1;
@@ -108,8 +108,8 @@ $(function() {
 		    	    	temperatureResponseString = "Yes";
 		    	    }
     	    	});
-
-    	    	$.get(  "/RemoteCommodities/"+$(this).val(), function( data ) {
+*/
+    	    	$.get(  "/RemoteLocations/"+$(this).val(), function( data ) {
 	    		    //JSON FORMAT: "{\"commodity\":[{\"commodityName\":\"wheat\",\"rate\":\"5\",\"unit\":\"kWh\"}]}"
 		    	    var obj = jQuery.parseJSON(data);
 		    	    $.each(obj.commodity,function(i,v){
@@ -118,11 +118,11 @@ $(function() {
 		    	    	var commodityLowerThresholdTemp = parseInt(v.lowerTempThreshold);
 
 		    	    	if(userTemperature > commodityUpperThresholdTemp || userTemperature < commodityLowerThresholdTemp){
-			    	    	$("#commodity-table-body").append("<tr><td>"+v.commodityName+"</td><td>"+v.rate+"</td><td>"+v.unit+"</td><td>"+"No"+"</td></tr>");
+			    	    	$("#commodity-table-body").append("<tr><td>"+v.name+"</td><td>"+v.name+"</td><td>"+v.name+"</td><td>"+"No"+"</td></tr>");
 		    	    	}
 
 		    	    	else{
-			    	    	$("#commodity-table-body").append("<tr><td>"+v.commodityName+"</td><td>"+v.rate+"</td><td>"+v.unit+"</td><td>"+"Yes"+"</td></tr>");
+			    	    	$("#commodity-table-body").append("<tr><td>"+v.name+"</td><td>"+v.name+"</td><td>"+v.name+"</td><td>"+"Yes"+"</td></tr>");
 		    	    	}
 		    	    });
     	    	});

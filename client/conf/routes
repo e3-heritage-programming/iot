@@ -6,6 +6,7 @@
 GET     /                           controllers.Application.index()
 GET		/webServiceExampleData			controllers.Application.consumeExternalWebserviceData()
 GET		/webServiceExampleRender			controllers.Application.consumeExternalWebserviceRender()
+GET     /webServiceExampleDataWeather	        controllers.Application.consumeExternalWebserviceDataWeather()
 GET		/webServiceExampleRenderWeather			controllers.Application.consumeExternalWebserviceRenderWeather()
 
 
@@ -21,7 +22,7 @@ GET		/RemoteCommodities				controllers.Application.getRemoteCommodities()
 GET		/RemoteCommodities/:commodityName	controllers.Application.getRemoteCommodity(commodityName: String)
 
 # Return specific location information
-GET		/RemoteLocations/:locationName	controllers.Application.getRemoteLocations(locationName: String)
+GET		/RemoteLocations/:locationName	controllers.Application.getRemoteWeather(locationName: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
