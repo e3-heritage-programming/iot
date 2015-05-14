@@ -1,5 +1,6 @@
 package controllers;
 
+import play.Logger;
 import play.libs.ws.WS;
 import play.libs.ws.WSRequestHolder;
 
