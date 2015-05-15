@@ -21,7 +21,7 @@ public class Application extends Controller {
     private final static String REMOTE_COMMODITIES_SERVICE_URL = REMOTE_REST_SERVICE + "/Commodities";
     private final static String REMOTE_LOCATIONS_SERVICE_URL = REMOTE_REST_SERVICE + "/Locations";
     private final static String LOCATION_SERVICE = "http://api.openweathermap.org";
-    private final static String LOCATION_WEATHER_GETTER = LOCATION_SERVICE + "/data/2.5/weather?q=/";
+    private final static String LOCATION_WEATHER_GETTER = LOCATION_SERVICE + "/data/2.5/weather?q=";
 
 
     public static Result getWeather(String longitude, String latitude) {
@@ -68,6 +68,9 @@ public class Application extends Controller {
         return ok(json);
     }
 
+    /**
+     * Query an external webApplication and display the result data in your web Application (for Weather).
+     */
     public static Result consumeExternalWebserviceDataWeather() {
         WSRequestHolder holder = WS.url(REMOTE_LOCATIONS_SERVICE_URL);
         Promise<WSResponse> responsePromise = holder.get();
@@ -129,7 +132,7 @@ public class Application extends Controller {
         try {
             json = Json.parse(rsp.getBody());
         } catch (Exception e) {//could be of wrong response from server or no response at all (non 200 http request)
-            //return empty list of commodities
+            // return empty list of commodities
             return ok(views.html.Application.index.render(commodities));
         }
 
@@ -145,7 +148,7 @@ public class Application extends Controller {
     }
 
     /**
-     * Query an external webApplication and apply template and display data in readable format.
+     * Query an external webApplication and apply template and display data in readable format (for Weather).
      */
     public static Result consumeExternalWebserviceRenderWeather() {
         WSRequestHolder holder = WS.url(REMOTE_LOCATIONS_SERVICE_URL);
@@ -226,7 +229,7 @@ public class Application extends Controller {
         //WSRequestHolder holder = WS.url(REMOTE_COMMODITIES_SERVICE_URL);
 
 
-        WSRequestHolder holder = WS.url(LOCATION_WEATHER_GETTER + city + ",Canada");
+        WSRequestHolder holder = WS.url(LOCATION_WEATHER_GETTER + city + ",Canada&units=metric");
         Promise<WSResponse> responsePromise = holder.get();
         WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
 
@@ -263,19 +266,19 @@ public class Application extends Controller {
      * @return
      */
     public static Result getRemoteLocations(String locationName){
-        WSRequestHolder holder = WS.url(LOCATION_WEATHER_GETTER + locationName + ",Canada");
+        WSRequestHolder holder = WS.url(LOCATION_WEATHER_GETTER + locationName + ",Canada&units=metric");
         Promise<WSResponse> responsePromise = holder.get();
         WSResponse rsp = responsePromise.get(60, TimeUnit.SECONDS);
         JsonNode json = null;
 
-        try{
+/*        try{
             json = Json.toJson(rsp.getBody());
         }catch(Exception e){
         	return ok(rsp.getBody());
         }
 
         json.findValue("locationName").toString().replace("\"", "");
-
+*/
         return ok(rsp.getBody());
     }
 }

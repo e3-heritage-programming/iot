@@ -18,7 +18,7 @@ GET     /weather/:longitude/:latitude 				    controllers.Application.getWeather
 # Calls Remote Service that returns all commodity names.
 GET		/RemoteCommodities				controllers.Application.getRemoteCommodities()
 
-# Return specific commodity informationgetRemoteCommodity
+# Return specific commodity information getRemoteCommodity
 GET		/RemoteCommodities/:commodityName	controllers.Application.getRemoteCommodity(commodityName: String)
 
 # Return specific location information
