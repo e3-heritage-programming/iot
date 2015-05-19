@@ -1,0 +1,28 @@
+@(locations: java.util.Map[Integer, String])
+@Layouts.main("Weather") {
+	<div id="location-dropdown-divid" class="location-dropdown-divclass text-center">
+		<select id="location-dropdown" title="Select Location">
+			<option selected value="">Select Location</option>
+			@for((locationId, locationName) <- locations) {
+				<option value='@locationId'>@locationName</option>
+			}
+		</select>
+	</div>
+	<div id="rate-table" class="rate-table text-center">
+		<button id="location-refresh" class="btn btn-default refresh">Refresh Data</button>
+		<br/>
+		<table id="location-rate-table" class="table table-striped rates center text-left">
+			<thead>
+				<tr>
+					<th>Time</th>
+					<th>Location</th>
+					<th>Temperature</th>
+					<th>Weather</th>
+					<th>Wind</th>
+				</tr>
+			</thead>
+			<tbody id="location-table-body">
+			</tbody>
+		</table>
+	</div>
+}

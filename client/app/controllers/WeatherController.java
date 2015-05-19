@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WeatherController extends Controller {
-    public static Result consumeWeatherRender() {
+    public static Result getWeather() {
         Map<Integer, String> locations = new HashMap<>();
 
         JsonNode json = Json.parse(getBody(REMOTE_LOCATION_SERVICE_URL));
@@ -19,7 +19,7 @@ public class WeatherController extends Controller {
                     (locationNode.findValue("locationName") + ", " + locationNode.findValue("countryName")).replace("\"", ""));
         }
 
-        return ok(views.html.Application.weather.render(locations));
+        return ok(views.html.Weather.index.render(locations));
     }
 
     public static Result getWeatherByLatLong(String latitude, String longitude) {
@@ -29,7 +29,7 @@ public class WeatherController extends Controller {
 
     public static Result getWeatherById(int id) {
         return ok(getBody(REMOTE_WEATHER_SERVICE_URL +
-                "/Id?id=" + id));
+                "/Logs?id=" + id));
     }
 
 }

@@ -1,4 +1,4 @@
-package com.sample;
+package objects;
 
 public class Commodity {
 

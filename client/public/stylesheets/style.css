@@ -1,26 +1,16 @@
-.rate-table {
-    position: fixed;
-    top: 23%;
-    left: 50%;
-    /* bring your own prefixes */
-    transform: translate(-50%, -50%);
-    /*  position: fixed;
-      top: 100px;
-      left:110px; */
+.content {
+    padding: 100px;
 }
 
-.commodity-dropdown-divclass {
-    position: fixed;
-    top: 15%;
-    left: 50%;
-    /* bring your own prefixes */
-    transform: translate(-50%, -50%);
+table.center {
+    margin: 0 auto !important;
+    float: none !important;
 }
 
-.location-dropdown-divclass {
-    position: fixed;
-    top: 15%;
-    left: 50%;
-    /* bring your own prefixes */
-    transform: translate(-50%, -50%);
+table.rates {
+    max-width: 700px;
+}
+
+.refresh {
+    margin: 20px;
 }

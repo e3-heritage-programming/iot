@@ -1,18 +1,22 @@
-import com.sample.Commodities;
-import com.sample.Commodity;
-import com.sample.Location;
-import com.sample.Locations;
+package global;
+
+import global.WeatherLogger;
+import objects.Commodities;
+import objects.Commodity;
+import objects.Location;
+import objects.Locations;
 import play.Application;
 import play.GlobalSettings;
-import play.Logger;
+import play.libs.Akka;
+import scala.concurrent.duration.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Global extends GlobalSettings {
 
     public void onStart(Application app) {
-        Logger.info("Application about to load default resource");
 
         List<Commodity> commodities = new ArrayList<>();
 
@@ -31,5 +35,16 @@ public class Global extends GlobalSettings {
         locations.add(new Location("Ste-Julie", "Canada"));
 
         Locations.setLocations(locations);
+
+        tasks();
+    }
+
+    private void tasks() {
+        Akka.system().scheduler().schedule(
+                Duration.create(0, TimeUnit.SECONDS),
+                WeatherLogger.getDuration(),
+                (Runnable) WeatherLogger::log,
+                Akka.system().dispatcher()
+        );
     }
 }

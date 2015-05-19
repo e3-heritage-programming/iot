@@ -4,7 +4,6 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import play.Logger;
 import play.libs.ws.WS;
-import play.libs.ws.WSRequestHolder;
 
 public class Controller extends play.mvc.Controller {
     protected final static String REMOTE_REST_SERVICE;
@@ -31,9 +30,6 @@ public class Controller extends play.mvc.Controller {
      * @return body
      */
     protected static String getBody(String url) {
-        Logger.debug("URL: " + url);
-
-        WSRequestHolder holder = WS.url(url);
-        return holder.get().get(TIMEOUT).getBody();
+        return WS.url(url).get().get(TIMEOUT).getBody();
     }
 }

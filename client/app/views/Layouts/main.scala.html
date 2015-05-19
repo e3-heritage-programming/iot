@@ -1,0 +1,28 @@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>@title</title>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+		<script src="/assets/javascripts/script.js")" type="text/javascript"></script>
+		<script src="/assets/javascripts/moment.js")" type="text/javascript"></script>
+
+		<link rel="stylesheet" href="/assets/stylesheets/style.css")">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+	</head>
+
+	<body>
+		@views.html.Layouts.navbar()
+
+		<div class="container content">
+			<div class="alert alert-danger sr-only" role="alert">
+				<span>Error:</span>
+			</div>
+			@content
+		</div>
+	</body>
+</html>

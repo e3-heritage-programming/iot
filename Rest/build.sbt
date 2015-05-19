@@ -1,3 +1,5 @@
+import io.apigee.trireme.node10.node.path
+
 name := """Rest"""
 
 version := "1.0-SNAPSHOT"
@@ -10,5 +12,7 @@ libraryDependencies ++= Seq(
   javaJdbc,
   javaEbean,
   cache,
-  javaWs
+  javaWs,
+  "mysql" % "mysql-connector-java" % "5.1.18",
+  "org.projectlombok" % "lombok" % "1.12.6"
 )

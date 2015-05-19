@@ -1,4 +1,4 @@
-package com.sample;
+package objects;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,6 +10,7 @@ public class Commodities {
     private static Map<Integer, Commodity> commodities;
 
     public static void setCommodities(List<Commodity> commodities) {
+        // Set id for all commodities
         Commodities.commodities = new HashMap<>();
         int id = 0;
         for (Commodity commodity : commodities) {

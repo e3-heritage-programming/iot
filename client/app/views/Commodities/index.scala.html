@@ -1,0 +1,27 @@
+@(commodities: java.util.Map[Integer, String])
+@Layouts.main("Commodities") {
+	<div id="commodity-dropdown-divid" class="commodity-dropdown-divclass text-center">
+		<select id="commodity-dropdown" title="Select Commodity">
+			<option selected>Select Commodity</option>
+			@for((commodityId, commodityName) <- commodities) {
+				<option value='@commodityId'>@commodityName</option>
+			}
+		</select>
+	</div>
+	<br/>
+	<div id="rate-table" class="rate-table text-center">
+		<button id="refresh" class="btn btn-default">Refresh Data</button>
+		<table id="commodity-rate-table" class="table rates center text-left">
+			<thead>
+				<tr>
+					<th>Commodity</th>
+					<th>Rate</th>
+					<th>Unit</th>
+					<th>Recommended To Consume</th>
+				</tr>
+			</thead>
+			<tbody id="commodity-table-body">
+			</tbody>
+		</table>
+	</div>
+}
