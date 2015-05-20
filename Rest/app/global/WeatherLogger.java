@@ -17,10 +17,13 @@ public class WeatherLogger {
     @Getter
     private static final FiniteDuration duration = Duration.create(5, TimeUnit.MINUTES);
 
+    /**
+     * Log all of the current weather's into the database.
+     */
     public static void log() {
         try {
             for (Location location : Locations.getAllLocations()) {
-                // add new entry
+                // Add new entry to database
                 WeatherInfo weather = new WeatherInfo();
                 weather.location = location.getId();
                 weather.date = new DateTime();
@@ -28,10 +31,16 @@ public class WeatherLogger {
                 weather.save();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Error!
         }
     }
 
+    /**
+     * Gets the location's log history.
+     *
+     * @param location location
+     * @return History
+     */
     public static String getLocationLogs(Location location) {
         return Json.toJson(WeatherInfo.find
                 .where().eq("location", location.getId()) // get for that location only
@@ -39,6 +48,12 @@ public class WeatherLogger {
                 .findList()).toString();
     }
 
+    /**
+     * Gets the location's log history.
+     *
+     * @param location location
+     * @return History
+     */
     public static String getLocationLogs(int location) {
         return getLocationLogs(Locations.getLocation(location));
     }

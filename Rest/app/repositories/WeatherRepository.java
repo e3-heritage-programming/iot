@@ -8,6 +8,12 @@ public class WeatherRepository {
     final public static String WEATHER_API = "http://api.openweathermap.org/data/2.5/weather";
     final public static String UNITS = "metric";
 
+    /**
+     * Get weather of location
+     *
+     * @param location Location
+     * @return weather
+     */
     public static String getWeather(Location location) {
         // Check if location with id was found
         if (location == null)
@@ -18,6 +24,12 @@ public class WeatherRepository {
                 location.getLocationName() + "," + location.getCountryName() + "&units=" + UNITS);
     }
 
+    /**
+     * Get weather of location
+     *
+     * @param location Location id
+     * @return weather
+     */
     public static String getWeather(int location) {
         return getWeather(Locations.getLocation(location));
     }

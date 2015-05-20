@@ -15,3 +15,6 @@ dist
 /.settings
 
 Dockerfile
+start
+node_modules
+bower_components
