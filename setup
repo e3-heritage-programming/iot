@@ -12,6 +12,6 @@ cd ..
 
 docker build -t play .
 
-docker run -d -v "client":/data:rw -p 9000:9000 -t play -name client
-docker run -d -v "Rest":/data:rw -p 9001:9000 -t play -name rest
+docker run -d -v "`pwd`/client":/data:rw -p 9000:9000 -t play -name client
+docker run -d -v "`pwd`/Rest":/data:rw -p 9001:9000 -t play -name rest
 
