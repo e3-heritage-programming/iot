@@ -1,0 +1,7 @@
+unzip target/universal/*-SNAPSHOT.zip
+
+cd target/universal/*-SNAPSHOT
+
+rm -rf bin/*.bat
+
+sh bin/*
