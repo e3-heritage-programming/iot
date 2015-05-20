@@ -21,7 +21,7 @@ public class WeatherRepository {
 
         // Return json reply from openweathermap
         return Helpers.getBody(WEATHER_API + "?q=" +
-                location.getLocationName() + "," + location.getCountryName() + "&units=" + UNITS);
+                location.getLocationGlued() + "&units=" + UNITS);
     }
 
     /**
