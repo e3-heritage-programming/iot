@@ -2,6 +2,7 @@ package objects;
 
 import lombok.Data;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 @Data
@@ -18,6 +19,10 @@ public class Location {
     }
 
     public String getLocationGlued() {
-        return URLEncoder.encode(locationName + "," + countryName, "UTF-8");
+        try {
+            return URLEncoder.encode(locationName + "," + countryName, "UTF-8");
+        } catch (UnsupportedEncodingException exception) {
+            exception.printStackTrace();
+        }
     }
 }
