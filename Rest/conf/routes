@@ -15,5 +15,5 @@ GET        /Weather/Id            controllers.WeatherController.getWeatherById(i
 GET        /Weather/Pos           controllers.WeatherController.getWeatherByLatLong(longitude: String, latitude: String)
 
 # Returns all location names.
-GET        /Locations             controllers.ApplicationController.getLocations()
+GET        /Locations             controllers.WeatherController.getLocations()
 GET        /Weather/Logs          controllers.WeatherController.getWeatherLogs(id: Integer)
