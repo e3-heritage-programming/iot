@@ -1,11 +1,15 @@
 #!/bin/bash
 cd target/universal
 
+echo "Cleaning"
+rm -rf */
+#rm -rf *-SNAPSHOT.tgz/
+
 echo "Unzipping ZIP"
 unzip *-SNAPSHOT.zip
 
-echo "Untarring output"
-tar *-SNAPSHOT.tgz
+#echo "Untarring output"
+#tar *-SNAPSHOT.tgz
 
 echo "CDing into output"
 cd *-SNAPSHOT
