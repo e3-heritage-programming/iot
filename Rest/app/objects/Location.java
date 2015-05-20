@@ -16,6 +16,6 @@ public class Location {
     }
 
     public String getLocationGlued() {
-        return locationName + "," + countryName;
+        return (locationName + "," + countryName).replace("\\ ", "+");
     }
 }
