@@ -4,22 +4,22 @@ module.exports = {
 
   'styles': {
     'src' : 'assets/sass/app.scss',
-    'dest': 'public/assets/build/css'
+    'dest': 'public/build/css'
   },
 
   'images': {
     'src' : 'assets/images/**/*',
-    'dest': 'public/assets/build/images'
+    'dest': 'public/build/images'
   },
 
   'fonts': {
     'src' : 'assets/fonts/**/*',
-    'dest': 'public/assets/build/fonts'
+    'dest': 'public/build/fonts'
   },
 
   'gzip': {
     'src': 'build/**/*.{html,xml,json,css,js,js.map}',
-    'dest': 'public/assets/build/',
+    'dest': 'public/build/',
     'options': {}
   },
 
@@ -30,7 +30,7 @@ module.exports = {
   'browserify': {
     'entries'   : ['./assets/javascript/app.js'],
     'bundleName': 'app.js',
-    'dest': 'public/assets/build/scripts',
+    'dest': 'public/build/scripts',
     'sourcemap' : true
   }
 
