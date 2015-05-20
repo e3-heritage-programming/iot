@@ -8,7 +8,7 @@ EXPOSE 9000
 RUN mkdir /app
 WORKDIR /app
 
-COPY /data/target/universal/*-SNAPSHOT.zip .
+RUN cp /data/target/universal/*-SNAPSHOT.zip .
 RUN unzip *-SNAPSHOT.zip
 RUN mv -r *-SNAPSHOT/* .
 
