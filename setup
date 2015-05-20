@@ -1,3 +1,4 @@
+#!/bin/bash
 cd client
 sudo activator universal:package-bin
 
@@ -12,10 +13,3 @@ cd ..
 \cp -rf start Rest
 
 docker build -t play .
-
-docker rm client
-docker rm rest
-
-docker run -d -v "`pwd`/client":/app:rw -p 9000:9000 --name client -t play
-docker run -d -v "`pwd`/Rest":/app:rw -p 9001:9000 --name rest -t play
-
