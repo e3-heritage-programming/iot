@@ -1,6 +1,9 @@
 unzip target/universal/*-SNAPSHOT.zip
 
-cd target/universal/*-SNAPSHOT
+cd target/universal
+tar *-SNAPSHOT.tgz
+
+cd *-SNAPSHOT
 
 rm -rf bin/*.bat
 
