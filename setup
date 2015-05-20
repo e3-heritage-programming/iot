@@ -1,5 +1,3 @@
-git pull
-
 cd client
 sudo activator universal:package-bin
 
@@ -12,6 +10,6 @@ cd ..
 
 docker build -t play .
 
-docker run -d -v "`pwd`/client":/data:rw -p 9000:9000 -t play -name client
-docker run -d -v "`pwd`/Rest":/data:rw -p 9001:9000 -t play -name rest
+docker run -d -v "`pwd`/client":/data:rw -p 9000:9000 -name client-t play
+docker run -d -v "`pwd`/Rest":/data:rw -p 9001:9000 -name rest -t play
 
