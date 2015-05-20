@@ -3,17 +3,17 @@
 module.exports = {
 
   'styles': {
-    'src' : 'app/assets/sass/app.scss',
+    'src' : 'assets/sass/app.scss',
     'dest': 'public/assets/build/css'
   },
 
   'images': {
-    'src' : 'app/assets/images/**/*',
+    'src' : 'assets/images/**/*',
     'dest': 'public/assets/build/images'
   },
 
   'fonts': {
-    'src' : ['app/assets/fonts/**/*'],
+    'src' : 'assets/fonts/**/*',
     'dest': 'public/assets/build/fonts'
   },
 
@@ -28,7 +28,7 @@ module.exports = {
   },
 
   'browserify': {
-    'entries'   : ['./app/assets/javascript/app.js'],
+    'entries'   : ['./assets/javascript/app.js'],
     'bundleName': 'app.js',
     'dest': 'public/assets/build/scripts',
     'sourcemap' : true
