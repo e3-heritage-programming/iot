@@ -56,7 +56,7 @@ function buildScript(file) {
                 compress: { drop_console: true }
             }))))
             .pipe(gulpif(createSourcemap, sourcemaps.write('./')))
-            .pipe(gulp.dest(config.browserify.dest))
+            .pipe(gulp.dest(config.scripts.dest))
     }
 
     return rebundle();
