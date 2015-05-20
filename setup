@@ -1,0 +1,17 @@
+git pull
+
+cd client
+sudo activator universal:package-bin
+
+cd ..
+
+cd Rest
+sudo activator universal:package-bin
+
+cd ..
+
+docker build -t play .
+
+docker run -d -v "client":/data:rw -p 9000:9000 -t play -name client
+docker run -d -v "Rest":/data:rw -p 9001:9000 -t play -name rest
+
