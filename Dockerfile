@@ -8,6 +8,6 @@ EXPOSE 9000
 RUN mkdir /app
 WORKDIR /app
 
-ENV PLAY_REMOTE_REST http://localhost:9001
+ENV PLAY_REMOTE_REST $PLAY_REMOTE_REST
 
 CMD bash start

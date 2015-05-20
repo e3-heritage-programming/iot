@@ -12,4 +12,5 @@ cd ..
 \cp -rf start client
 \cp -rf start Rest
 
-docker build -t play .
+export PLAY_REMOTE_REST="http://viv.craftthatblock.com:9001"
+cat Dockerfile | envsubst | docker build -t play -
