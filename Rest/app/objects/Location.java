@@ -1,9 +1,7 @@
 package objects;
 
+import global.Helpers;
 import lombok.Data;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 @Data
 public class Location {
@@ -19,10 +17,6 @@ public class Location {
     }
 
     public String getLocationGlued() {
-        try {
-            return URLEncoder.encode(locationName + "," + countryName, "UTF-8");
-        } catch (UnsupportedEncodingException exception) {
-            exception.printStackTrace();
-        }
+        return Helpers.convertToURLEscapingIllegalCharacters(locationName + "," + countryName);
     }
 }
