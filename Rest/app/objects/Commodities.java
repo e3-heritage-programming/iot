@@ -8,7 +8,11 @@ import java.util.Map;
 public class Commodities {
 
     private static Map<Integer, Commodity> commodities;
-    private static int id = 0;
+    private static int id;
+
+    static {
+        reset();
+    }
 
     public static void setCommodities(List<Commodity> commodities) {
         reset();

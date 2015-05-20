@@ -8,7 +8,11 @@ import java.util.Map;
 public class Locations {
 
     private static Map<Integer, Location> locations;
-    private static int id = 0;
+    private static int id;
+
+    static {
+        reset();
+    }
 
     public static void setLocations(List<Location> locations) {
         reset();
