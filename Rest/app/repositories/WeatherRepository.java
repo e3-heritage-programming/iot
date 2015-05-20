@@ -20,8 +20,8 @@ public class WeatherRepository {
             return Helpers.jsonError("Location not found");
 
         // Return json reply from openweathermap
-        return Helpers.getBody(WEATHER_API + "?q=" +
-                location.getLocationGlued() + "&units=" + UNITS);
+        return Helpers.getBody(Helpers.convertToURLEscapingIllegalCharacters(WEATHER_API + "?q=" +
+                location.getLocationGlued() + "&units=" + UNITS));
     }
 
     /**

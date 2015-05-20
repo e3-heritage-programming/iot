@@ -1,6 +1,5 @@
 package objects;
 
-import global.Helpers;
 import lombok.Data;
 
 @Data
@@ -17,6 +16,6 @@ public class Location {
     }
 
     public String getLocationGlued() {
-        return Helpers.convertToURLEscapingIllegalCharacters(locationName + "," + countryName);
+        return locationName + "," + countryName);
     }
 }
