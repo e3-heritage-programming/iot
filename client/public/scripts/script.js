@@ -1,5 +1,3 @@
-var moment = require('./moment');
-
 $(function () {
     var alert = document.getElementById("alert alert-danger");
 
