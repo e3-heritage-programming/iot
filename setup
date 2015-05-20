@@ -13,5 +13,5 @@ cd ..
 \cp -rf start Rest
 
 export PLAY_REMOTE_REST="http://viv.craftthatblock.com:9001"
-export PLAY_REST_MYSQL="mysql://deploy:ericsson@viv.craftthatblock.com:3306/rest"
+export PLAY_REST_MYSQL="mysql://deploy:ericsson@viv.craftthatblock.com:33060/rest"
 cat Dockerfile | envsubst | docker build -t play -
