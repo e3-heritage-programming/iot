@@ -1,7 +1,7 @@
 FROM ingensi/oracle-jdk
 MAINTAINER Charles-William Crete <craftthatblock@gmail.com>
 
-RUN yum install unzip
+RUN yum install -y unzip
 
 EXPOSE 9000
 
