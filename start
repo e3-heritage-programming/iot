@@ -18,4 +18,4 @@ echo "Removing bat"
 rm -rf bin/*.bat
 
 echo "Starting..."
-bash bin/*
+bash bin/* -DapplyEvolutions.default=true
