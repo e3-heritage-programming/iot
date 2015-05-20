@@ -10,4 +10,4 @@ WORKDIR /app
 
 ENV PLAY_REMOTE_REST http://localhost:9001
 
-CMD sh start
+CMD bash start

@@ -1,10 +1,17 @@
-unzip target/universal/*-SNAPSHOT.zip
-
+#!/bin/bash
 cd target/universal
+
+echo "Unzipping ZIP"
+unzip *-SNAPSHOT.zip
+
+echo "Untarring output"
 tar *-SNAPSHOT.tgz
 
+echo "CDing into output"
 cd *-SNAPSHOT
 
+echo "Removing bat"
 rm -rf bin/*.bat
 
-sh bin/*
+echo "Starting..."
+bash bin/*
