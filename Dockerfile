@@ -1,14 +1,19 @@
 FROM ingensi/oracle-jdk
-MAINTAINER Ingensi labs <contact@ingensi.com>
+MAINTAINER Charles-William Crete <craftthatblock@gmail.com>
 
-RUN yum update -y && yum install -y unzip
-RUN curl -O http://downloads.typesafe.com/typesafe-activator/1.2.10/typesafe-activator-1.2.10.zip
-RUN unzip typesafe-activator-1.2.10.zip -d / && rm typesafe-activator-1.2.10.zip && chmod a+x /activator-1.2.10/activator
-ENV PATH $PATH:/activator-1.2.10
-
-ENV PLAY_REMOTE_REST http://ican-rest.craftthatblock.com:9001
+RUN yum install unzip
 
 EXPOSE 9000
+
 RUN mkdir /app
 WORKDIR /app
-CMD ["activator", "run"]
+
+COPY /data/target/universal/*-SNAPSHOT.zip .
+RUN unzip *-SNAPSHOT.zip
+RUN mv -r *-SNAPSHOT/* .
+
+RUM rm -rf bin/*.bat
+
+ENV PLAY_REMOTE_REST http://localhost:9001
+
+CMD ["./bin/*"]
