@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class WeatherLogger {
 
     @Getter
-    private static final FiniteDuration duration = Duration.create(5, TimeUnit.MINUTES);
+    private static final FiniteDuration duration = Duration.create(30, TimeUnit.MINUTES);
 
     /**
      * Log all of the current weather's into the database.
@@ -45,6 +45,7 @@ public class WeatherLogger {
         return Json.toJson(WeatherInfo.find
                 .where().eq("location", location.getId()) // get for that location only
                 .orderBy().desc("date") // show newest first
+                .setMaxRows(50)
                 .findList()).toString();
     }
 
