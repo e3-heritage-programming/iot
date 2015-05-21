@@ -2,8 +2,6 @@ package global;
 
 import objects.Commodities;
 import objects.Commodity;
-import objects.Location;
-import objects.Locations;
 import play.Application;
 import play.GlobalSettings;
 import play.libs.Akka;
@@ -21,12 +19,12 @@ public class Global extends GlobalSettings {
         Commodities.addCommodity(new Commodity("Air-Condition", "4$/kWh", "kWh", 35.0, 17.0));
 
 
-        Locations.addLocation(new Location("Montreal", "Canada"));
-        Locations.addLocation(new Location("Toronto", "Canada"));
-        Locations.addLocation(new Location("Ste-Julie", "Canada"));
-        Locations.addLocation(new Location("London", "Britain"));
-        Locations.addLocation(new Location("Palo Alto", "United-States"));
-        Locations.addLocation(new Location("Stockholm", "Sweden"));
+//        Locations.addLocation(new Location("Montreal", "Canada"));
+//        Locations.addLocation(new Location("Toronto", "Canada"));
+//        Locations.addLocation(new Location("Ste-Julie", "Canada"));
+//        Locations.addLocation(new Location("London", "Britain"));
+//        Locations.addLocation(new Location("Palo Alto", "United-States"));
+//        Locations.addLocation(new Location("Stockholm", "Sweden"));
 
         tasks();
     }

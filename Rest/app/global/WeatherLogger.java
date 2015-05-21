@@ -1,12 +1,11 @@
 package global;
 
-import models.WeatherInfo;
-import objects.Location;
-import objects.Locations;
-import repositories.WeatherRepository;
 import lombok.Getter;
+import models.Location;
+import models.WeatherInfo;
 import org.joda.time.DateTime;
 import play.libs.Json;
+import repositories.WeatherRepository;
 import scala.concurrent.duration.Duration;
 import scala.concurrent.duration.FiniteDuration;
 
@@ -22,17 +21,20 @@ public class WeatherLogger {
      */
     public static void log() {
         try {
-            for (Location location : Locations.getAllLocations()) {
+            for (Location location : Location.find.all()) {
                 // Add new entry to database
-                WeatherInfo weather = new WeatherInfo();
-                weather.location = location.getId();
-                weather.date = new DateTime();
-                weather.data = WeatherRepository.getWeather(location);
-                weather.save();
+                createLogForLocation(location);
             }
         } catch (Exception e) {
             e.printStackTrace(); // Error!
         }
+    }
+    public static void createLogForLocation(Location location){
+        new WeatherInfo(
+                location.getId(),
+                new DateTime(),
+                WeatherRepository.getWeather(location)
+        ).save();
     }
 
     /**
@@ -55,7 +57,7 @@ public class WeatherLogger {
      * @param location location
      * @return History
      */
-    public static String getLocationLogs(int location) {
-        return getLocationLogs(Locations.getLocation(location));
+    public static String getLocationLogs(Long location) {
+        return getLocationLogs(Location.find.byId(location));
     }
 }

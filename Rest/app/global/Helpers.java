@@ -2,6 +2,9 @@ package global;
 
 import play.libs.ws.WS;
 
+import java.util.Arrays;
+import java.util.Locale;
+
 public class Helpers {
     public static final int TIMEOUT = 10 * 1000; // In Milli
 
@@ -25,4 +28,17 @@ public class Helpers {
         return "{\"error\": \"" + error + "\"}";
     }
 
+    /**
+     * Get a full country name by it's code.
+     * Example: CA => Canada
+     *
+     * @param country Country Code
+     * @return Country Name
+     */
+    public static String getCountryNameByCode(String country) {
+        if (Arrays.asList(Locale.getISOCountries()).contains(country))
+            return new Locale("", country).getDisplayCountry();
+        else
+            return country;
+    }
 }

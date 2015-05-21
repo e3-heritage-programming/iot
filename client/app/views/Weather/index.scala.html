@@ -1,6 +1,8 @@
 @(locations: java.util.Map[Integer, String])
-	@Layouts.main("Weather") {
-		<div id="location-dropdown-divid" class="location-dropdown-divclass text-center">
+@Layouts.main("Weather") {
+	<div class="text-center">
+
+		<div id="location-dropdown-divid" class="location-dropdown-divclass">
 			<select id="location-dropdown" title="Select Location">
 				<option selected value="">Select Location</option>
 				@for((locationId, locationName) <- locations) {
@@ -8,9 +10,32 @@
 				}
 			</select>
 		</div>
-		<div id="rate-table" class="rate-table text-center">
-			<button id="location-refresh" class="btn btn-default refresh">Refresh Data</button>
+
+		<br/>
+
+		<a class="btn btn-default refresh" id="location-refresh" href="#">
+			Refresh Data
+		</a>
+		<a class="btn btn-primary" href="#add" data-toggle="collapse" aria-expanded="false" aria-controls="add">
+			Add Location
+		</a>
+
+		<div class="collapse" id="add">
 			<br/>
+			<div class="well">
+				<form id="addloc" action="/Locations/Add" method="GET">
+					<div class="form-group">
+						<label for="name">Location</label>
+						<input type="text" class="form-control" id="locname" placeholder="Montreal, Canada">
+						<input type="hidden" class="form-control" name="name" id="name">
+					</div>
+					<button type="submit" class="btn btn-default">Add Location</button>
+				</form>
+			</div>
+		</div>
+
+
+		<div id="rate-table" class="rate-table">
 			<div class="table-responsive">
 				<table id="location-rate-table" class="table table-striped rates center text-left">
 					<thead>
@@ -27,4 +52,5 @@
 				</table>
 			</div>
 		</div>
-	}
+	</div>
+}

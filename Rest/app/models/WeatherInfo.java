@@ -1,5 +1,7 @@
 package models;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.joda.time.DateTime;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
@@ -9,21 +11,29 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+@Data
 @Entity
+@EqualsAndHashCode(callSuper=false)
 public class WeatherInfo extends Model {
 
     @Id
-    public Long id;
+    private Long id;
 
     @Constraints.Required
-    public int location;
+    private Long location;
 
     @Formats.DateTime(pattern = "YYYY-MM-DDThh:mmTZD")
-    public DateTime date;
+    private DateTime date;
 
     @Constraints.Required
     @Column(columnDefinition = "TEXT")
-    public String data;
+    private String data;
+
+    public WeatherInfo(Long location, DateTime date, String data){
+        this.location = location;
+        this.date = date;
+        this.data = data;
+    }
 
     public static Finder<Long, WeatherInfo> find = new Finder<Long, WeatherInfo>(
             Long.class, WeatherInfo.class

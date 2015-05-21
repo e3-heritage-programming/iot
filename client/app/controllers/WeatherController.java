@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import play.libs.Json;
 import play.mvc.Result;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +32,17 @@ public class WeatherController extends Controller {
     public static Result getWeatherById(int id) {
         return ok(getBody(REMOTE_WEATHER_SERVICE_URL +
                 "/Logs?id=" + id));
+    }
+
+    public static Result getAddLocation(String name) {
+        try {
+            getBody(REMOTE_LOCATION_SERVICE_URL +
+                    "/Add?name=" + URLEncoder.encode(name,  "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        return redirect("/weather");
     }
 
 }

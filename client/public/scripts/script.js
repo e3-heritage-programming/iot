@@ -1,3 +1,4 @@
+var autocomplete;
 $(function () {
     var alert = document.getElementById("alert alert-danger");
 
@@ -49,6 +50,40 @@ $(function () {
     $("#location-refresh").click(function () {
         updateLocation();
     });
+
+
+    function findComponent(place, type) {
+        var component = _.find(place.address_components, function (component) {
+            return _.include(component.types, type);
+        });
+        return component && component.short_name;
+    }
+
+    autocomplete = new google.maps.places.Autocomplete($("#locname")[0], {
+            types: ['(cities)']
+        }
+    );
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+        updateName();
+    });
+
+    $('#addloc').submit(function (e) {
+        var form = this;
+        e.preventDefault();
+        setTimeout(function () {
+            updateName();
+            form.submit();
+        }, 500);
+    });
+
+    function updateName() {
+        var place = autocomplete.getPlace();
+        $("#name").val(
+            findComponent(place, 'administrative_area_level_3') || findComponent(place, 'locality') +
+            ", " +
+            findComponent(place, 'country')
+        );
+    }
 });
 
 function getRow(inside) {
@@ -60,6 +95,7 @@ function getCell(inside) {
 function getTooltip(inside) {
     return getCell("<span class=\"show-tooltip\">" + inside + "</span>");
 }
+
 
 String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);

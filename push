@@ -1,0 +1,8 @@
+#!/bin/sh
+
+commit="$@"
+
+git add .
+git commit -m "$commit"
+
+ssh viv -t "cd iot; git pull; sh setup; sh deploy"

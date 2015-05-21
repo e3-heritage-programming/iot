@@ -1,8 +1,6 @@
 package controllers;
 
 import global.WeatherLogger;
-import objects.Locations;
-import play.libs.Json;
 import play.mvc.Result;
 import repositories.WeatherRepository;
 
@@ -23,7 +21,7 @@ public class WeatherController extends BaseController {
      * @param id Location id
      * @return weather
      */
-    public static Result getWeatherById(int id) {
+    public static Result getWeatherById(Long id) {
         return ok(WeatherRepository.getWeather(id));
     }
 
@@ -33,14 +31,7 @@ public class WeatherController extends BaseController {
      * @param id Location id
      * @return logs
      */
-    public static Result getWeatherLogs(int id) {
+    public static Result getWeatherLogs(Long id) {
         return ok(WeatherLogger.getLocationLogs(id));
-    }
-
-    /**
-     * @return Array of location names.
-     */
-    public static Result getLocations() {
-        return ok("{\"Locations\":" + Json.toJson(Locations.getAllLocations()) + "}");
     }
 }

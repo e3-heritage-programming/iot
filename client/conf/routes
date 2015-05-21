@@ -12,6 +12,7 @@ GET        /weather                      controllers.WeatherController.getWeathe
 # RESTful Service
 GET        /Weather/Pos                  controllers.WeatherController.getWeatherByLatLong(latitude: String, longitude: String)
 GET        /Weather/Id                   controllers.WeatherController.getWeatherById(id: Integer)
+GET        /Locations/Add                controllers.WeatherController.getAddLocation(name: String)
 
 # Calls Remote Service that returns all commodity names.
 GET        /Commodities                  controllers.CommoditiesController.getRemoteCommodities()

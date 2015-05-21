@@ -3,17 +3,20 @@
 # ~~~~
 
 # Home page
-GET        /                      controllers.ApplicationController.index()
+GET         /                      controllers.ApplicationController.index()
 
 # RESTful Service
 # Returns all commodity names.
-GET        /Commodities           controllers.CommodityController.getCommodities()
+GET         /Commodities           controllers.CommodityController.getCommodities()
 # Return specific commodity information
-GET        /Commodities/Id        controllers.CommodityController.getCommodity(id: Integer)
+GET         /Commodities/Id        controllers.CommodityController.getCommodity(id: Integer)
 
-GET        /Weather/Id            controllers.WeatherController.getWeatherById(id: Integer)
-GET        /Weather/Pos           controllers.WeatherController.getWeatherByLatLong(longitude: String, latitude: String)
+GET         /Weather/Id            controllers.WeatherController.getWeatherById(id: Long)
+GET         /Weather/Pos           controllers.WeatherController.getWeatherByLatLong(longitude: String, latitude: String)
 
 # Returns all location names.
-GET        /Locations             controllers.WeatherController.getLocations()
-GET        /Weather/Logs          controllers.WeatherController.getWeatherLogs(id: Integer)
+GET         /Weather/Logs          controllers.WeatherController.getWeatherLogs(id: Long)
+
+
+GET         /Locations             controllers.LocationController.getLocations()
+GET         /Locations/Add         controllers.LocationController.getAddLocation(name: String)
