@@ -13,12 +13,14 @@ public class CommodityController extends BaseController {
      * @return Details about the specific commodity request if present. If not commodity not found.
      */
     public static Result getCommodity(int id) {
+        // Get commodity
         Commodity commodity = Commodities.getCommodity(id);
 
         // Check if commodity was found
         if (commodity == null)
             return ok(Helpers.jsonError("Commodity not found"));
 
+        // Format as json
         String json = "{\"commodity\":[" + Json.toJson(commodity) + "]}";
         return ok(json);
     }
@@ -28,7 +30,9 @@ public class CommodityController extends BaseController {
      * @return Array of commodity names.
      */
     public static Result getCommodities() {
-        return ok("{\"Commodities\":" + Json.toJson(Commodities.getAllCommodities()) + "}");
+        // Format as json all commodities
+        String commodities = Json.toJson(Commodities.getAllCommodities()).toString();
+        return ok("{\"Commodities\":" + commodities + "}");
     }
 
 }

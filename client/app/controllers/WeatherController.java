@@ -10,7 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WeatherController extends Controller {
+    /**
+     * @return Weather page
+     */
     public static Result getWeather() {
+        // Setup locations
         Map<Integer, String> locations = new HashMap<>();
 
         JsonNode json = Json.parse(getBody(REMOTE_LOCATION_SERVICE_URL));
@@ -21,19 +25,33 @@ public class WeatherController extends Controller {
                     (locationNode.findValue("locationName") + ", " + locationNode.findValue("countryName")).replace("\"", ""));
         }
 
+        // Render
         return ok(views.html.Weather.index.render(locations));
     }
 
+    /**
+     * @param latitude Latitude
+     * @param longitude Longitude
+     * @return Weather Json
+     */
     public static Result getWeatherByLatLong(String latitude, String longitude) {
         return ok(getBody(REMOTE_WEATHER_SERVICE_URL +
                 "/Pos?latitude=" + latitude + "&longitude=" + longitude));
     }
 
-    public static Result getWeatherById(int id) {
+    /**
+     * @param id Location id
+     * @return Weather Logs Json
+     */
+    public static Result getWeatherById(Long id) {
         return ok(getBody(REMOTE_WEATHER_SERVICE_URL +
                 "/Logs?id=" + id));
     }
 
+    /**
+     * @param name Location name to add
+     * @return Redirect to weather page
+     */
     public static Result getAddLocation(String name) {
         try {
             getBody(REMOTE_LOCATION_SERVICE_URL +

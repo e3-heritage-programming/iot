@@ -15,6 +15,7 @@ public class Helpers {
      * @return body
      */
     public static String getBody(String url) {
+        // Use WS (from Play) to get URL's body
         return WS.url(url).get().get(TIMEOUT).getBody();
     }
 
@@ -25,6 +26,7 @@ public class Helpers {
      * @return Json formatted error
      */
     public static String jsonError(String error) {
+        // Format an error as Json
         return "{\"error\": \"" + error + "\"}";
     }
 
@@ -36,6 +38,7 @@ public class Helpers {
      * @return Country Name
      */
     public static String getCountryNameByCode(String country) {
+        // Check if code. If not, just return normal.
         if (Arrays.asList(Locale.getISOCountries()).contains(country))
             return new Locale("", country).getDisplayCountry();
         else

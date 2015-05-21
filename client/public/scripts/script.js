@@ -1,46 +1,10 @@
 var autocomplete;
+
 $(function () {
     var alert = document.getElementById("alert alert-danger");
 
     $("#commodity-dropdown").change(function () {
-        $("#commodity-table-body").empty();
-        var commodityId = $(this).val();
-        var commodityName = $(this).find("option:selected").text();
-
-        var longitude = -1;
-        var latitude = -1;
-
-        function getLocation() {
-            if (navigator.geolocation)
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    latitude = position.coords.latitude;
-                    longitude = position.coords.longitude;
-                });
-            else
-                alert("Geolocation is not supported by this browser.");
-        }
-
-        var userTemperature = -1000;
-
-        $.get("/Commodities/Id?id=" + commodityId, function (data) {
-            var obj = jQuery.parseJSON(data);
-            $.each(obj.commodity, function (key, value) {
-
-                var commodityUpperThresholdTemp = parseInt(value.upperTempThreshold);
-                var commodityLowerThresholdTemp = parseInt(value.lowerTempThreshold);
-
-                var temperatureResponse = userTemperature > commodityUpperThresholdTemp ||
-                    userTemperature < commodityLowerThresholdTemp;
-                $("#commodity-table-body").append(getRow(
-                    getCell(value.commodityName) +
-                    getCell(value.rate) +
-                    getCell(value.unit) +
-                    getCell(temperatureResponse ? "Yes" : "No")
-                ));
-
-
-            });
-        });
+        updateCommodity();
     });
 
     $("#location-dropdown").change(function () {
@@ -51,18 +15,11 @@ $(function () {
         updateLocation();
     });
 
-
-    function findComponent(place, type) {
-        var component = _.find(place.address_components, function (component) {
-            return _.include(component.types, type);
-        });
-        return component && component.short_name;
-    }
-
     autocomplete = new google.maps.places.Autocomplete($("#locname")[0], {
             types: ['(cities)']
         }
     );
+
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
         updateName();
     });
@@ -76,14 +33,6 @@ $(function () {
         }, 500);
     });
 
-    function updateName() {
-        var place = autocomplete.getPlace();
-        $("#name").val(
-            findComponent(place, 'administrative_area_level_3') || findComponent(place, 'locality') +
-            ", " +
-            findComponent(place, 'country')
-        );
-    }
 });
 
 function getRow(inside) {
@@ -94,6 +43,22 @@ function getCell(inside) {
 }
 function getTooltip(inside) {
     return getCell("<span class=\"show-tooltip\">" + inside + "</span>");
+}
+
+function updateName() {
+    var place = autocomplete.getPlace();
+    $("#name").val(
+        findComponent(place, 'administrative_area_level_3') || findComponent(place, 'locality') +
+        ", " +
+        findComponent(place, 'country')
+    );
+}
+
+function findComponent(place, type) {
+    var component = _.find(place.address_components, function (component) {
+        return _.include(component.types, type);
+    });
+    return component && component.short_name;
 }
 
 
@@ -127,6 +92,48 @@ function updateLocation() {
                 });
             } catch (e) {
             }
+        });
+    });
+}
+
+function updateCommodity() {
+    $("#commodity-table-body").empty();
+    var dropdown = $("#commoditiy-dropdown");
+    var commodityId = dropdown.val();
+    var commodityName = dropdown.find("option:selected").text();
+
+    var longitude = -1;
+    var latitude = -1;
+
+    function getLocation() {
+        if (navigator.geolocation)
+            navigator.geolocation.getCurrentPosition(function (position) {
+                latitude = position.coords.latitude;
+                longitude = position.coords.longitude;
+            });
+        else
+            alert("Geolocation is not supported by this browser.");
+    }
+
+    var userTemperature = -1000;
+
+    $.get("/Commodities/Id?id=" + commodityId, function (data) {
+        var obj = jQuery.parseJSON(data);
+        $.each(obj.commodity, function (key, value) {
+
+            var commodityUpperThresholdTemp = parseInt(value.upperTempThreshold);
+            var commodityLowerThresholdTemp = parseInt(value.lowerTempThreshold);
+
+            var temperatureResponse = userTemperature > commodityUpperThresholdTemp ||
+                userTemperature < commodityLowerThresholdTemp;
+            $("#commodity-table-body").append(getRow(
+                getCell(value.commodityName) +
+                getCell(value.rate) +
+                getCell(value.unit) +
+                getCell(temperatureResponse ? "Yes" : "No")
+            ));
+
+
         });
     });
 }

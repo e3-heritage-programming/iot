@@ -15,17 +15,13 @@ public class WeatherRepository {
      * @return weather
      */
     public static String getWeather(String location) {
-        // Check if location with id was found
-        if (location == null)
-            return Helpers.jsonError("Location not found");
-
         // Return json reply from openweathermap
         try {
             return Helpers.getBody(WEATHER_API + "?q=" +
                     location + "&units=" + UNITS + "&APPID=" + APIKEY);
         } catch (Exception e) {
             e.printStackTrace();
-            return Helpers.jsonError("Error");
+            return Helpers.jsonError("Could not get weather data");
         }
     }
 
@@ -36,6 +32,7 @@ public class WeatherRepository {
      * @return weather
      */
     public static String getWeather(Long location) {
+        // Get location object
         return getWeather(Location.find.byId(location));
     }
 
@@ -52,6 +49,10 @@ public class WeatherRepository {
      * @return weather
      */
     public static String getWeather(Location location) {
+        // Check if location was found
+        if (location == null)
+            return Helpers.jsonError("Location not found");
+
         return getWeather(location.getLocationGlued());
     }
 }

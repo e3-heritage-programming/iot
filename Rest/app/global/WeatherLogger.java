@@ -21,15 +21,14 @@ public class WeatherLogger {
      */
     public static void log() {
         try {
-            for (Location location : Location.find.all()) {
-                // Add new entry to database
-                createLogForLocation(location);
-            }
+            // Make a new log for each locations
+            Location.find.all().forEach(global.WeatherLogger::createLogForLocation);
         } catch (Exception e) {
-            e.printStackTrace(); // Error!
+            e.printStackTrace();
         }
     }
     public static void createLogForLocation(Location location){
+        // Make use log using current weather data
         new WeatherInfo(
                 location.getId(),
                 new DateTime(),
@@ -47,7 +46,7 @@ public class WeatherLogger {
         return Json.toJson(WeatherInfo.find
                 .where().eq("location", location.getId()) // get for that location only
                 .orderBy().desc("date") // show newest first
-                .setMaxRows(50)
+                .setMaxRows(50) // only get 50 rows
                 .findList()).toString();
     }
 
@@ -58,6 +57,7 @@ public class WeatherLogger {
      * @return History
      */
     public static String getLocationLogs(Long location) {
+        // Get all logs for a location
         return getLocationLogs(Location.find.byId(location));
     }
 }
